@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container-60{
+    max-width: 60%;
+    margin: 0 auto;
+}
+.container-70{
+    max-width: 70%;
+    margin: 0 auto;
+}
+.container-75{
+    max-width: 75%;
+    margin: 0 auto;
+}
+.container-80{
+    max-width: 80%;
+    margin: 0 auto;
+}
+.container-85{
+    max-width: 85%;
+    margin: 0 auto;
+}
+.container-90{
+    max-width: 90%;
+    margin: 0 auto;
+}
+.container-95{
+    max-width: 95%;
+    margin: 0 auto;
+}
+
