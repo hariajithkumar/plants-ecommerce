@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
 }
@@ -30,5 +30,254 @@
 .container-95{
     max-width: 95%;
     margin: 0 auto;
+} */
+
+
+/* section start  */
+section {
+    background: #F8F8F8;
 }
 
+.slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.visible.slide-left,
+.visible.slide-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.product-img .img-bg {
+    background: url('../image/card_bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-content {
+    padding: 100px 30px;
+}
+
+.img-bg h5 {
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+
+.img-bg h4 {
+    color: #FFF;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 38px;
+}
+
+.img-bg p {
+    color: #00AF07;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+
+/* product-list css start  */
+.product-title {
+    color: #1A1A1A;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 50px;
+}
+
+.view-all {
+    color: #056839;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.normal-box {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #056839;
+    background: #FFF;
+}
+
+.box-view {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #E6E6E6;
+    background: #FFF;
+}
+
+.sales-offer {
+    border-radius: 4px;
+    background: #EA4B48;
+    border: none;
+    padding: 5px;
+    margin: 8px 0px;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.product-details h5 {
+    color: #4D4D4D;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.product-details .price {
+    color: #1A1A1A;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.product-details .rate {
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+/* plant store css start  */
+.plant-store {
+    border-radius: 10px;
+    background: #EAFAEB;
+}
+
+.plant-store .image-1 {
+    width: 30%;
+    height: 80%;
+    vertical-align: top;
+}
+
+.plant-store .image-2 {
+    width: 70%;
+    height: 100%;
+}
+
+.plant-store h3 {
+    color: #1A1A1A;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 46px;
+}
+
+.plant-store h4 {
+    color: #1A1A1A;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+.plant-store p {
+    color: #808080;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 23px;
+}
+
+.plant-store button {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    border-radius: 43px;
+    background: #056839;
+    border: none;
+    padding: 15px 40px;
+}
+
+
+/* contact section css start  */
+.contact-info {
+    border-radius: 10px;
+    background: #EAFAEB;
+}
+
+.contact-box {
+    padding: 20px;
+    border-radius: 10px;
+    background: #FFF;
+}
+
+.contact-box h4 {
+    margin: 10px 0px !important;
+    color: #1A1A1A;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+
+.contact-box p {
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.contact-box .number {
+    color: #00AF07;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 34px;
+}
+
+.contact-box .input-set {
+    /* width: 100%; */
+    border-radius: 500px;
+    border: 1px solid #E6E6E6;
+    background: #FFF;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.contact-box .input-set input {
+    padding: 12px;
+    border-radius: 500px;
+    border-right: none !important;
+    border: 1px solid #E6E6E6;
+    background: #FFF;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.contact-box .input-set input::placeholder {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.contact-box .input-set button {
+    border-radius: 43px !important;
+    background: #056839;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+}

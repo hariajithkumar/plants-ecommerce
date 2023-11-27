@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 export const CrateSlice = createSlice({
-    name: "matrimony_data",
+    name: "plants_product",
     initialState: {
         isClass1Show: false,
         profileDetails: '',
@@ -25,6 +25,9 @@ export const CrateSlice = createSlice({
             password: "",
             confirm_password: ""
         },
+        isLiked :false,
+        isAdded :false,
+        isAddproductcount:0
     },
 
     reducers: {
@@ -43,9 +46,21 @@ export const CrateSlice = createSlice({
         setregisterDetails:(state,action)=>{
             state.registerDetails = action.payload
         },
+        setisLiked:(state,action)=>{
+            state.isLiked = action.payload
+        },
+        setisAdded:(state,action)=>{
+            state.isAdded = action.payload
+        },
+        setisIncrement: (state) => {
+            state.isAddproductcount += 1
+        },
+        setisDecrement: (state) => {
+            state.isAddproductcount -= 1
+        },
     }
 })
 
-export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement } = CrateSlice.actions
 export default CrateSlice.reducer
 

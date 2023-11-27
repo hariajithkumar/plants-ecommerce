@@ -80,12 +80,14 @@
     font-weight: 600;
     line-height: 24px;
 }
-.icon-section{
+
+.icon-section {
     position: relative;
 }
+
 .item-count {
     position: absolute;
-    left: 63%;
+    left: 52%;
     top: 15px;
     display: inline-flex;
     padding: 0px 10px;
@@ -94,4 +96,31 @@
     border-radius: 16px;
     background: #EA4B48;
     color: #FFF;
+}
+
+/* nav section start  */
+
+.nav-section {
+    background: #056839;
+}
+
+.dropdown-toggle::after {
+    content: none !important;
+}
+.nav-content{
+    width: 100%;
+    justify-content: space-around;
+}
+nav .active {
+    color: #FFF000 !important;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 23px;
+}
+
+.option-list {
+    color: #FFF !important;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 23px !important;
 }
