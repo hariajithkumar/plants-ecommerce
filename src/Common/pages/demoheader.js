@@ -5,7 +5,7 @@ import React from 'react'
 import '../assets/css/regular.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 // image path
 import headphone from '../assets/image/Headset.png'
@@ -15,10 +15,6 @@ import shop from '../assets/image/header1.png'
 import heart from '../assets/image/header2.png'
 import profile from '../assets/image/header3.png'
 import mobilelogo from '../assets/image/mobilelogo.png'
-import whiteheart from '../assets/image/white_Heart.png'
-import whiteprofile from '../assets/image/white_user.png'
-import whitesearch from '../assets/image/white_search.png'
-import whiteshop from '../assets/image/white_shop.png'
 
 function Header() {
     return (
@@ -38,49 +34,35 @@ function Header() {
                 </div>
                 <div className='bottom-header py-4'>
                     <div className='container-90'>
-                        <div className='d-lg-block d-md-block d-none'>
-                            <div className='row m-0 p-2'>
-                                <div className='col-lg-4 col-md-5 col-6 text-start d-flex align-items-center'>
-                                    <div className="input-group input-set">
-                                        <span className="input-group-text border-0 bg-none bg-white" id="searchIcon">
-                                            <FontAwesomeIcon icon={faSearch} />
-                                        </span>
-                                        <input type="text" className="form-control border-0" placeholder="Search our shop" aria-label="Search" aria-describedby="searchButton" />
-                                        <button className="btn btn-outline-secondary" type="button" id="searchButton">search</button>
-                                    </div>
-                                </div>
-                                <div className='col-lg-5 col-md-2 text-center d-lg-block d-md-block d-none'>
-                                    <img src={logo} />
-                                </div>
-                                <div className='col-lg-3 col-md-5 col-5 d-flex align-items-center justify-content-end icon-section'>
-                                    <div className='d-lg-block d-md-block d-none'>
-                                        <img src={heart} alt='heart' className='mx-3' />
-                                        <img src={shop} alt='shop' className='mx-3' />
-                                        <img src={profile} className='mx-3' />
-                                        <span className='item-count'>1</span>
-
-                                    </div>
+                        <div className='row m-0 p-2'>
+                            <div className='col-lg-4 col-6 text-start d-flex align-items-center d-lg-block b-md-block d-none'>
+                                <div className="input-group input-set">
+                                    <span className="input-group-text border-0 bg-none bg-white" id="searchIcon">
+                                        <FontAwesomeIcon icon={faSearch} />
+                                    </span>
+                                    <input type="text" className="form-control border-0" placeholder="Search our shop" aria-label="Search" aria-describedby="searchButton" />
+                                    <button className="btn btn-outline-secondary" type="button" id="searchButton">search</button>
                                 </div>
                             </div>
+                            <div className='col-lg-5 text-center d-lg-block d-md-block d-none'>
+                                <img src={logo} />
+                            </div>
+                            <div className='col-lg-3 col-6 d-flex align-items-center justify-content-end icon-section'>
+                                <img src={heart} alt='heart' className='mx-3' />
+                                <img src={shop} alt='shop' className='mx-3' />
+                                <img src={profile} className='mx-3' />
+                                <span className='item-count'>1</span>
+                            </div>
                         </div>
-
                     </div>
                 </div>
                 <div className='nav-section'>
                     <nav className="navbar navbar-expand-lg container-90">
                         <div className="container-fluid">
-                            <a className="navbar-brand d-none" href="#"><img src={mobilelogo} /></a>
+                            <a className="navbar-brand d-lg-none" href="#"><img src={mobilelogo} /></a>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
-                            <a className="navbar-brand d-lg-none d-md-none" href="#"><img src={mobilelogo} /></a>
-                            <div className='icon-section d-lg-none d-md-none'>
-                                <img src={whiteheart} alt='heart' className='mx-3' />
-                                <img src={whiteshop} alt='shop' className='mx-3' />
-                                <img src={whiteprofile} className='mx-3' />
-                                <img src={whitesearch} className='mx-3' />
-                                <span className='item-count'>1</span>
-                            </div>
                             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                 <ul className="navbar-nav py-2 nav-content">
                                     <li class="nav-item">
@@ -89,7 +71,7 @@ function Header() {
                                     <li className="nav-item dropdown" aria-labelledby="dropdownMenuButton">
                                         <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Indoor Plants
-                                            <FontAwesomeIcon icon={faChevronDown} style={{ color: "#fafafa", }} className='ps-2' />
+                                            <FontAwesomeIcon icon={faChevronDown} style={{color: "#fafafa",}} className='ps-2'/>
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item" href="#">Action</a></li>
@@ -100,7 +82,7 @@ function Header() {
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Outdoor Plants
-                                            <FontAwesomeIcon icon={faChevronDown} style={{ color: "#fafafa", }} className='ps-2' />
+                                            <FontAwesomeIcon icon={faChevronDown} style={{color: "#fafafa",}} className='ps-2'/>
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item" href="#">Action</a></li>
