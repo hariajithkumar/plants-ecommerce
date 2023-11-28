@@ -11,6 +11,7 @@ import Register from './Domain/Register'
 import Home from './Domain/Home';
 import Product from './Domain/Product';
 import Description from './Domain/Description';
+import Profile from './Domain/Profile';
 
 function App() {
   useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/Allproduct' element={<Product />} />
         <Route path='/Description' element={<Description />}/>
+        <Route path='/Profile' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

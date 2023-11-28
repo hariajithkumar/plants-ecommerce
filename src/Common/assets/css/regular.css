@@ -107,10 +107,12 @@
 .dropdown-toggle::after {
     content: none !important;
 }
-.nav-content{
+
+.nav-content {
     width: 100%;
     justify-content: space-around;
 }
+
 nav .active {
     color: #FFF000 !important;
     font-size: 13px;
@@ -123,4 +125,10 @@ nav .active {
     font-size: 13px;
     font-weight: 500;
     line-height: 23px !important;
+}
+
+.head-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
