@@ -28,10 +28,12 @@ import contact from '../Common/assets/image/contact.png'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setisAdded, setisIncrement, setisDecrement, setisLiked } from '../Redux/CreateSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const { isLiked, isAdded, isAddproduct, isAddproductcount } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const product_like = () => {
     if (isLiked == false) {
@@ -50,8 +52,9 @@ function Home() {
     dispatch(setisDecrement())
   }
 
-  console.log(isAdded)
-  console.log(isAddproductcount)
+  const all_product = () => {
+    navigate('/Allproduct')
+  }
 
   return (
     <div>
@@ -77,7 +80,7 @@ function Home() {
           </div>
           <div className='product-list mt-5'>
             <span className='product-title'>Best sellers in indoor plants</span>
-            <span className='float-end view-all'>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
+            <span className='float-end view-all' onClick={()=>all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
             <div className='row m-0  py-5'>
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>

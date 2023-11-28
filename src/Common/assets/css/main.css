@@ -109,7 +109,9 @@ section {
     font-weight: 500;
     line-height: 16px;
 }
-
+.view-all:hover{
+    cursor: pointer;
+}
 .normal-box {
     padding: 10px;
     border-radius: 10px;

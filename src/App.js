@@ -9,6 +9,8 @@ import "@fontsource/poppins/400-italic.css"; // Specify weight and style
 import Login from './Domain/Login'
 import Register from './Domain/Register'
 import Home from './Domain/Home';
+import Product from './Domain/Product';
+import Description from './Domain/Description';
 
 function App() {
   useEffect(() => {
@@ -39,6 +41,8 @@ function App() {
         <Route path='' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/Allproduct' element={<Product />} />
+        <Route path='/Description' element={<Description />}/>
       </Routes>
     </BrowserRouter>
   );
