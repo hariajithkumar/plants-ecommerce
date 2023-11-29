@@ -12,6 +12,9 @@ import Home from './Domain/Home';
 import Product from './Domain/Product';
 import Description from './Domain/Description';
 import Profile from './Domain/Profile';
+import History from './Domain/History';
+import Wishlist from './Domain/Wishlist';
+import Purchase from './Domain/Purchase';
 
 function App() {
   useEffect(() => {
@@ -45,6 +48,9 @@ function App() {
         <Route path='/Allproduct' element={<Product />} />
         <Route path='/Description' element={<Description />}/>
         <Route path='/Profile' element={<Profile />} />
+        <Route path='/History' element={<History />} />
+        <Route path='/Wishlist' element={<Wishlist />} />
+        <Route path='Purchase' element={<Purchase />}/>
       </Routes>
     </BrowserRouter>
   );

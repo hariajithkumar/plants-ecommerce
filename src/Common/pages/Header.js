@@ -24,6 +24,12 @@ import whiteshop from '../assets/image/white_shop.png'
 
 function Header() {
     const navigate = useNavigate()
+    const hearts = () =>{
+        navigate('/Wishlist')
+    }
+    const shops = () =>{
+        navigate('/Purchase')
+    }
     const userProfile = () => {
         navigate('/Profile')
     }
@@ -61,8 +67,8 @@ function Header() {
                                     </div>
                                     <div className='col-lg-3 col-md-5 col-5 d-flex align-items-center justify-content-end icon-section'>
                                         <div className='d-lg-block d-md-block d-none'>
-                                            <img src={heart} alt='heart' className='mx-3 view-all' />
-                                            <img src={shop} alt='shop' className='mx-3 view-all' />
+                                            <img src={heart} alt='heart' className='mx-3 view-all' onClick={()=>hearts()}/>
+                                            <img src={shop} alt='shop' className='mx-3 view-all' onClick={()=>shops()}/>
                                             <img src={profile} className='mx-3 view-all' onClick={()=>userProfile()}/>
                                             <span className='item-count'>1</span>
 

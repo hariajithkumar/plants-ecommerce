@@ -27,7 +27,8 @@ export const CrateSlice = createSlice({
         },
         isLiked :false,
         isAdded :false,
-        isAddproductcount:0
+        isAddproductcount:0,
+        activeItem:'Account',
     },
 
     reducers: {
@@ -58,9 +59,12 @@ export const CrateSlice = createSlice({
         setisDecrement: (state) => {
             state.isAddproductcount -= 1
         },
+        setActiveItem:(state,action)=>{
+            state.activeItem = action.payload
+        },
     }
 })
 
-export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement,setActiveItem } = CrateSlice.actions
 export default CrateSlice.reducer
 
