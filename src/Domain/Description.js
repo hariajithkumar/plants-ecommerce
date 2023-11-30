@@ -5,6 +5,9 @@ import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 
 import '../Common/assets/css/description.css'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShop } from '@fortawesome/free-solid-svg-icons';
+
 // image path 
 import description1 from '../Common/assets/image/description1.png'
 import description2 from '../Common/assets/image/description2.png'
@@ -18,8 +21,11 @@ import icon2 from '../Common/assets/image/footer-twitter.png'
 import icon3 from '../Common/assets/image/footer-pinterest.png'
 import icon4 from '../Common/assets/image/footer-instagram.png'
 
+import { useNavigate } from 'react-router-dom';
+
 function Description() {
     const [value, setValue] = useState(0);
+    const navigate = useNavigate();
 
     const handleIncrement = () => {
         setValue(value + 1);
@@ -36,6 +42,11 @@ function Description() {
             setActiveTab(tab);
         }
     };
+
+    const buynow = () => {
+        navigate('/Placeorder')
+    }
+
     return (
         <div className='description-section'>
             <Header />
@@ -52,6 +63,10 @@ function Description() {
                             <div className='col-10'>
                                 <img src={description4} className='w-100 h-100' />
                             </div>
+                        </div>
+                        <div className='text-center'>
+                            {/* <button className='buynow'>Add to Cart <img src={shop} alt='shop' className='mx-2 p-0' /></button> */}
+                            <button className='buynow' onClick={() => buynow()}>Buy Now <FontAwesomeIcon icon={faShop} className='mx-2' /></button>
                         </div>
                     </div>
                     <div className='col-6 description-details'>
@@ -89,14 +104,14 @@ function Description() {
                             <img src={icon2} className='me-3' />
                             <img src={icon3} className='me-3' />
                             <img src={icon4} className='me-3' />
-                        </div> 
+                        </div>
                         <Nav tabs>
                             <NavItem className='plant-content'>
                                 <NavLink
                                     className={activeTab === 'tab1' ? 'active' : ''}
                                     onClick={() => toggleTab('tab1')}
                                 >
-                                   Descriptions
+                                    Descriptions
                                 </NavLink>
                             </NavItem>
                             <NavItem>

@@ -47,12 +47,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={mail} />
                             </span>
-                            <input
-                                type="text"
-                                className="form-control border-0 border-bottom"
-                                id="password"
-                                placeholder="Enter your password"
-                            />
+                            <input type="email" className="form-control border-0 border-bottom" id="email"  placeholder="Enter your email" />
                         </div>
                     </div>
                     <div className="my-3">
@@ -61,12 +56,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={usericon} />
                             </span>
-                            <input
-                                type="text"
-                                className="form-control border-0 border-bottom"
-                                id="password"
-                                placeholder="Enter your password"
-                            />
+                            <input type="text" className="form-control border-0 border-bottom" id="password" placeholder="Enter your name" />
                         </div>
                     </div>
                     <div className="my-3">
@@ -75,19 +65,9 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                className="form-control border-0 border-bottom"
-                                id="password"
-                                placeholder="Enter your password"
-                                
-                                
+                            <input type={showPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Enter your password"   
                             />
-                            <button
-                                className="btn "
-                                type="button"
-                                onClick={togglePasswordVisibility}
-                            >
+                            <button className="btn " type="button" onClick={togglePasswordVisibility}>
                                 <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                             </button>
                         </div>
@@ -98,14 +78,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input
-                                type={confirmPassword ? 'text' : 'password'}
-                                className="form-control border-0 border-bottom"
-                                id="password"
-                                placeholder="Confrim your Password"
-                                
-                                
-                            />
+                            <input type={confirmPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Confrim your Password" />
                             <button
                                 className="btn "
                                 type="button"

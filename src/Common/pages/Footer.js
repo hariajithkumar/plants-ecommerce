@@ -16,26 +16,26 @@ function Footer() {
     return (
         <>
             <footer className='footer-section'>
-                <div className='container-70 pt-5 pb-2'>
+                <div className='container-60 pt-5 pb-2'>
                     <div className='text-center'>
                         <img src={logo} />
                         <h6>Contact Us</h6>
                         <hr style={{ width: '20px', margin: '0 auto', border: '1px soild #056839' }} />
                         <p>PO BOX:115786 - Al Warsan3, Dubai, UAE.</p>
-                        <div className='row m-0 py-3 icon-content '>
-                            <div className='col-4 text-end p-0'>
+                        <div className='row m-0 py-3 icon-content align-items-stretch justify-content-center'>
+                            <div className='col-lg-4 col-md-6 col-12 p-0'>
                                 <img src={global} className='pe-2' />
                                 <span>govergardencentre@gmail.com</span>
                             </div>
-                            <div className='col-4 p-0'>
+                            <div className='col-lg-4 col-md-6 col-12 p-0 mt-lg-0 mt-md-0 mt-2'>
                                 <img src={email} className='pe-2' />
                                 <span>gover@emirates.net.ae</span>
                             </div>
-                            <div className='col-4 text-start p-0'>
+                            <div className='col-lg-4 col-md-6 col-12 mt-lg-0 mt-lg-0 mt-md-0 mt-2 p-0'>
                                 <img src={phone} className='pe-2' />
-                                <span>+971 5 65015231, +971 4 2872900</span>
+                                <span>+971 5 65015231,+971 4 2872900</span>
                             </div>
-                        </div>
+                        </div> 
                         <div className='icon-section'>
                             <img src={icon1} />
                             <img src={icon2} />

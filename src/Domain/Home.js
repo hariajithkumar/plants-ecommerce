@@ -62,14 +62,14 @@ function Home() {
       <section className='pt-3'>
         <div className='container-90'>
           <div className='row m-0  product-img'>
-            <div className='col-lg-8 col-md-6 col-12 slide-left visible p-0'>
+            <div className='col-lg-8 col-md-6 col-12 p-0'>
               <img src={plant1} className='w-100 h-' />
             </div>
-            <div className='col-lg-4 col-md-6 col-12 slide-right visible pe-0'>
+            <div className='col-lg-4 col-md-6 col-12 pe-0'>
               <div className='h-50'>
                 <img src={plant2} className='w-100 h-100 pb-2' />
               </div>
-              <div className="card h-50 img-bg" >
+              <div className="cards h-50 img-bg" >
                 <div className="card-body card-content">
                   <h5>Best Deal</h5>
                   <h4>Special Products Deal of the Month</h4>
@@ -80,8 +80,8 @@ function Home() {
           </div>
           <div className='product-list mt-5'>
             <span className='product-title'>Best sellers in indoor plants</span>
-            <span className='float-end view-all' onClick={()=>all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
-            <div className='row m-0  py-5'>
+            <span className='float-end view-all' onClick={() => all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
+            <div className='row m-0 py-5'>
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
@@ -157,7 +157,6 @@ function Home() {
               <div className='col-lg-6 col-12 slide-left visible'>
                 <img src={plant4} className='image-1 pe-2' />
                 <img src={plant5} className='image-2' />
-
               </div>
               <div className='col-lg-6 col-12 ps-5 slide-right visible'>
                 <h3 className='w-50'>100% Trusted Plant Store</h3>

@@ -56,6 +56,9 @@ section {
     transform: translateX(0);
 }
 
+.cards {
+    border-radius: 10px;
+}
 
 .product-img .img-bg {
     background: url('../image/card_bg.png');
@@ -109,9 +112,11 @@ section {
     font-weight: 500;
     line-height: 16px;
 }
-.view-all:hover{
+
+.view-all:hover {
     cursor: pointer;
 }
+
 .normal-box {
     padding: 10px;
     border-radius: 10px;

@@ -15,6 +15,10 @@ import Profile from './Domain/Profile';
 import History from './Domain/History';
 import Wishlist from './Domain/Wishlist';
 import Purchase from './Domain/Purchase';
+import Placeorder from './Domain/Placeorder';
+import Address from './Domain/Address';
+import ProductOrderForm from './Domain/ProductOrderForm';
+import Orderprocess from './Domain/Orderprocess';
 
 function App() {
   useEffect(() => {
@@ -50,7 +54,10 @@ function App() {
         <Route path='/Profile' element={<Profile />} />
         <Route path='/History' element={<History />} />
         <Route path='/Wishlist' element={<Wishlist />} />
-        <Route path='Purchase' element={<Purchase />}/>
+        <Route path='/Purchase' element={<Purchase />}/>
+        <Route path='/Placeorder' element={<Placeorder />}/>
+        <Route path='/ProductOrderForm' element={<ProductOrderForm />}/>
+        <Route path='/Orderprocess' element={<Orderprocess />} />
       </Routes>
     </BrowserRouter>
   );
