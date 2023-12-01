@@ -13,7 +13,12 @@ import plant1 from '../Common/assets/image/description4.png'
 import Rating from '../Common/assets/image/Rating.png'
 import cancel from '../Common/assets/image/cancel.png'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setLikedProducts, setlikescount } from '../Redux/CreateSlice';
+
+
 function Wishlist() {
+    const { likedProducts, likescount } = useSelector((state) => state.plants_product)
 
     const [statuslevel, setStatusLevel] = useState(true)
 
@@ -38,38 +43,31 @@ function Wishlist() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='total-wish'>
-                                        <td className='wish-product'>
-                                            <div className='row m-0 pt-2'>
-                                                <div className='col-4'>
-                                                    <img src={plant1} alt='plant1' className='w-100' />
-                                                </div>
-                                                <div className='col-8 py-4'>
-                                                    <h5>Aglaonema</h5>
-                                                    <img src={Rating} />
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className='py-5'><h6>AED 14.99</h6></td>
-                                        <td className='py-5'><span>In Stock</span></td>
-                                        <td className='py-5'><button>Move to Cart</button><img src={cancel} className='mx-3'/></td>
-                                    </tr>
-                                    <tr className='total-wish'>
-                                        <td className='wish-product'>
-                                            <div className='row m-0 pt-2'>
-                                                <div className='col-4'>
-                                                    <img src={plant1} alt='plant1' className='w-100' />
-                                                </div>
-                                                <div className='col-8 py-4'>
-                                                    <h5>Aglaonema</h5>
-                                                    <img src={Rating} />
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className='py-5'><h6>AED 14.99</h6></td>
-                                        <td className='py-5'><span>In Stock</span></td>
-                                        <td className='py-5'><button>Move to Cart</button><img src={cancel} className='mx-3'/></td>
-                                    </tr>
+                                    {likedProducts && likedProducts.map((data, index) => {
+                                        return (
+                                            <>
+                                                <tr className='total-wish'>
+
+
+                                                    <td className='wish-product'>
+                                                        <div className='row m-0 pt-2'>
+                                                            <div className='col-4'>
+                                                                <img src={plant1} alt='plant1' className='w-100' />
+                                                            </div>
+                                                            <div className='col-8 py-4'>
+                                                                <h5>{data.title}</h5>
+                                                                <img src={Rating} />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td className='py-5'><h6>{data.total_price}</h6></td>
+                                                    <td className='py-5'><span>In Stock</span></td>
+                                                    <td className='py-5'><button>Move to Cart</button><img src={cancel} className='mx-3' /></td>
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+
                                 </tbody>
                             </table>
                         </div>

@@ -92,6 +92,19 @@
     position: relative;
 }
 
+.like-count {
+    position: absolute;
+    left: 43%;
+    top: 15px;
+    display: inline-flex;
+    padding: 0px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background: #EA4B48;
+    color: #FFF;
+}
+
 .item-count {
     position: absolute;
     left: 64%;
@@ -176,9 +189,11 @@ nav .active {
         left: 38%;
         top: -10px;
     }
-    .footer-list ul{
+
+    .footer-list ul {
         column-count: 2 !important;
     }
+
     .footer-list ul li {
         display: inline-block;
         margin: 5px 0px;
@@ -192,13 +207,15 @@ nav .active {
     }
 
 }
+
 @media (max-width: 400px) {
 
-    .container-90{
+    .container-90 {
         max-width: 95%;
         margin: 0 auto;
     }
-    .mobile-margin{
+
+    .mobile-margin {
         margin: 0px 10px !important;
     }
 }

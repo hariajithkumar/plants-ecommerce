@@ -7,28 +7,26 @@ export const CrateSlice = createSlice({
         isClass1Show: false,
         profileDetails: '',
         loginDetails: {
-            name: '',
+            email: '',
             password: ''
         },
         logoutDetails: false,
         registerDetails: {
             name: "",
-            gender:'',
-            brith_data:'',
-            brith_month:'',
-            brith_year:'',
-            mobile_code:'',
-            mobile_number:'',
             email: "",
-            regligion: "",
-            caste: "",
+            mobile:"",
             password: "",
-            confirm_password: ""
+            password_confirm: ""
         },
+        allplantsDetails : "",
+        likedProducts : [],
+        likescount : 0,
         isLiked :false,
         isAdded :false,
         isAddproductcount:0,
         activeItem:'Account',
+        
+        
     },
 
     reducers: {
@@ -47,6 +45,9 @@ export const CrateSlice = createSlice({
         setregisterDetails:(state,action)=>{
             state.registerDetails = action.payload
         },
+        setallplantDetails:(state,action)=>{
+            state.allplantsDetails = action.payload
+        },
         setisLiked:(state,action)=>{
             state.isLiked = action.payload
         },
@@ -62,9 +63,16 @@ export const CrateSlice = createSlice({
         setActiveItem:(state,action)=>{
             state.activeItem = action.payload
         },
+        setLikedProducts:(state,action)=>{
+            state.likedProducts = action.payload
+        },
+        setlikescount: (state,action) => {
+            state.likescount = action.payload
+        },
+        
     }
 })
 
-export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement,setActiveItem } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement,setActiveItem,setallplantDetails,setLikedProducts,setlikescount } = CrateSlice.actions
 export default CrateSlice.reducer
 

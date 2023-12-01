@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 // image path
@@ -22,6 +23,8 @@ import whitesearch from '../assets/image/white_search.png'
 import whiteshop from '../assets/image/white_shop.png'
 import whitenav from '../assets/image/whitenav.png'
 function Header() {
+    const { likescount } = useSelector((state) => state.plants_product)
+
     const [isSticky, setIsSticky] = useState(false);
 
     const navigate = useNavigate()
@@ -37,7 +40,7 @@ function Header() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY >= 15) {
+            if (window.scrollY >= 2) {
                 setIsSticky(true);
             } else {
                 setIsSticky(false);
@@ -88,6 +91,7 @@ function Header() {
                                         <img src={shop} alt='shop' className='mx-3 view-all' onClick={() => shops()} />
                                         <img src={profile} className='mx-3 view-all' onClick={() => userProfile()} />
                                         <span className='item-count'>1</span>
+                                        <span className='like-count'>{likescount}</span>
 
                                     </div>
                                 </div>
@@ -113,6 +117,7 @@ function Header() {
                                 <img src={whiteprofile} className='mx-3 mobile-margin' onClick={() => userProfile()}/>
                                 <img src={whitesearch} className='mx-3 mobile-margin' />
                                 <span className='item-count'>1</span>
+                                <span className='like-count'>{likescount}</span>
                             </div>
                             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                 <ul className="navbar-nav py-2 nav-content">

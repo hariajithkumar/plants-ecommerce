@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Common/pages/Header'
 import Footer from '../Common/pages/Footer'
+import axios from "axios";
 
 import '../Common/assets/css/main.css'
 
@@ -10,7 +11,7 @@ import { faArrowRight, faHeart } from '@fortawesome/free-solid-svg-icons';
 // image section 
 import plant1 from '../Common/assets/image/plant_1.jpg'
 import plant2 from '../Common/assets/image/plant_2.jpg'
-import like from '../Common/assets/image/like.png'
+import likes from '../Common/assets/image/like.png'
 import unlike from '../Common/assets/image/unlike.png'
 import plant3 from '../Common/assets/image/plant_3.png'
 import rating from '../Common/assets/image/Rating.png'
@@ -27,27 +28,40 @@ import contact from '../Common/assets/image/contact.png'
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setisAdded, setisIncrement, setisDecrement, setisLiked } from '../Redux/CreateSlice';
+import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDetails, setLikedProducts, setlikeProduct, setlikescount } from '../Redux/CreateSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const { isLiked, isAdded, isAddproduct, isAddproductcount } = useSelector((state) => state.plants_product)
+  const { isLiked, isAdded, isAddproduct, isAddproductcount, allplantsDetails, likedProducts,likescount } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const product_like = () => {
-    if (isLiked == false) {
-      dispatch(setisLiked(true))
-    } else {
-      dispatch(setisLiked(false))
-    }
+  const totallikes = likedProducts.map((data) => data.id);
 
+  const handleLikeClick = (product) => {
+    const isLikeds = product.id;
+
+    // Check if the product ID is in the likedProducts array
+    if (totallikes.includes(isLikeds)) {
+      // If it's already liked, remove it from the likedProducts array
+      dispatch(setLikedProducts(likedProducts.filter((likedProduct) => likedProduct.id !== isLikeds)));
+      dispatch(setlikescount(likescount-1))
+    } else {
+      // If it's not liked, add it to the likedProducts array
+      dispatch(setLikedProducts([...likedProducts, product]));
+      dispatch(setlikescount(likescount+1))
+
+    }
+  };
+  console.log(likescount)
+  const product_like = () => {
+    console.log("ajith")
   }
-  const product_add = () => {
+  const product_add = (id) => {
     dispatch(setisAdded(false))
     dispatch(setisIncrement())
   }
-  const product_remove = () => {
+  const product_remove = (id) => {
     dispatch(setisAdded(true))
     dispatch(setisDecrement())
   }
@@ -55,103 +69,106 @@ function Home() {
   const all_product = () => {
     navigate('/Allproduct')
   }
+  const plantproduct = async () => {
+    const { data } = await axios.get('https://webbitech.co.in/ecommerce/public/api/productlist');
+    dispatch(setallplantDetails(data.data))
+  }
+  useEffect(() => {
+    plantproduct();
+  }, [])
 
   return (
     <div>
       <Header />
       <section className='pt-3'>
         <div className='container-90'>
-          <div className='row m-0  product-img'>
-            <div className='col-lg-8 col-md-6 col-12 p-0'>
-              <img src={plant1} className='w-100 h-' />
-            </div>
-            <div className='col-lg-4 col-md-6 col-12 pe-0'>
-              <div className='h-50'>
-                <img src={plant2} className='w-100 h-100 pb-2' />
+          {/* <header section start  */}
+          <div className='d-lg-block d-none'>
+            <div className='row m-0  product-img'>
+              <div className='col-lg-8 col-md-6 col-12 p-0'>
+                <img src={plant1} className='w-100 h-' />
               </div>
-              <div className="cards h-50 img-bg" >
-                <div className="card-body card-content">
-                  <h5>Best Deal</h5>
-                  <h4>Special Products Deal of the Month</h4>
-                  <p>Shop Now <FontAwesomeIcon icon={faArrowRight} style={{ color: '#00AF07' }} className='ps-2' /></p>
+              <div className='col-lg-4 col-md-6 col-12 pe-0 mt-lg-0 mt-2'>
+                <div className='h-50'>
+                  <img src={plant2} className='w-100 h-100 pb-2' />
+                </div>
+                <div className="cards h-50 img-bg" >
+                  <div className="card-body card-content">
+                    <h5>Best Deal</h5>
+                    <h4>Special Products Deal of the Month</h4>
+                    <p>Shop Now <FontAwesomeIcon icon={faArrowRight} style={{ color: '#00AF07' }} className='ps-2' /></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className='d-lg-none d-block'>
+            <div className='row m-0 product-img '>
+              <div className='col-md-6 col-6 p-0'>
+                <img src={plant1} className='w-100 h-100' />
+              </div>
+              <div className='col-md-6 col-6 px-2'>
+                <img src={plant2} className='w-100 h-100' />
+              </div>
+              <div className='col-12 p-0 mt-lg-0 mt-2'>
+                <div className="cards h-100 img-bg" >
+                  <div className="card-body card-content">
+                    <h5>Best Deal</h5>
+                    <h4>Special Products Deal of the Month</h4>
+                    <p>Shop Now <FontAwesomeIcon icon={faArrowRight} style={{ color: '#00AF07' }} className='ps-2' /></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <header section end  */}
+          {/* Best sellers in indoor plants start  */}
           <div className='product-list mt-5'>
-            <span className='product-title'>Best sellers in indoor plants</span>
-            <span className='float-end view-all' onClick={() => all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
-            <div className='row m-0 py-5'>
-              <div className='col-3'>
-                <div className={isAdded ? 'normal-box' : 'box-view'}>
-                  <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
-                  <img src={plant3} className='w-100' />
-                  <div class="row m-0 product-details">
-                    <div class="col-9">
-                      <h5>Anthurium</h5>
-                      <span className='price pe-2'>AED 14.99</span><span className='text-decoration-line-through rate'>AED 20.99</span>
-                      <img src={rating} />
-                    </div>
-                    <div class="col-3">
-                      {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add()} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove()} /> </>)}
-                    </div>
-                  </div>
-                </div>
+            <div className='row m-0'>
+              <div className='col-lg-10 col-md-10 col-sm-9 col-8'>
+                <span className='product-title'>Best sellers in indoor plants</span>
               </div>
-              <div className='col-3'>
-                <div className={isAdded ? 'normal-box' : 'box-view'}>
-                  {/* <button className='sales-offer'>Sale 50%</button> */}
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
-                  <img src={plant3} className='w-100' />
-                  <div class="row m-0 product-details">
-                    <div class="col-9">
-                      <h5>Anthurium</h5>
-                      <span className='price pe-2'>AED 14.99</span><span className='text-decoration-line-through rate'>AED 20.99</span>
-                      <img src={rating} />
-                    </div>
-                    <div class="col-3">
-                      {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add()} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove()} /> </>)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='col-3'>
-                <div className={isAdded ? 'normal-box' : 'box-view'}>
-                  <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
-                  <img src={plant3} className='w-100' />
-                  <div class="row m-0 product-details">
-                    <div class="col-9">
-                      <h5>Anthurium</h5>
-                      <span className='price pe-2'>AED 14.99</span><span className='text-decoration-line-through rate'>AED 20.99</span>
-                      <img src={rating} />
-                    </div>
-                    <div class="col-3">
-                      {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add()} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove()} /> </>)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='col-3'>
-                <div className={isAdded ? 'normal-box' : 'box-view'}>
-                  <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
-                  <img src={plant3} className='w-100' />
-                  <div class="row m-0 product-details">
-                    <div class="col-9">
-                      <h5>Anthurium</h5>
-                      <span className='price pe-2'>AED 14.99</span><span className='text-decoration-line-through rate'>AED 20.99</span>
-                      <img src={rating} />
-                    </div>
-                    <div class="col-3">
-                      {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add()} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove()} /> </>)}
-                    </div>
-                  </div>
-                </div>
+              <div className='col-lg-2 col-md-2 col-sm-3 col-4 d-flex align-items-center justify-content-center '>
+                <span className='float-end view-all' onClick={() => all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
               </div>
             </div>
+            <div className='row m-0 py-5'>
+
+              {allplantsDetails && allplantsDetails.map((data, index) => {
+                return (
+                  <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2'>
+                    <div className={isAdded ? 'normal-box' : 'box-view'}>
+                      <button className='sales-offer'>Sale {data.discount_price}</button>
+                      <span
+                        className='float-end'
+                        onClick={() => handleLikeClick(data)}
+                      >
+                        <img
+                          src={likedProducts.includes(data) ? likes : unlike}
+                          alt="Like Button"
+                        />
+                      </span>
+                      <img src={plant3} className='w-100' />
+                      <div class="row m-0 product-details">
+                        <div class="col-9">
+                          <h5>{data.title}</h5>
+                          <span className='price pe-2'>{data.total_price}</span><span className='text-decoration-line-through rate'>{data.actual_price}</span>
+                          <img src={rating} className='ms-2' />
+                        </div>
+                        <div class="col-3">
+                          {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add(data.id)} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove(data.id)} /> </>)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+
+
+            </div>
           </div>
+          {/* Best sellers in indoor plants end  */}
           <div className='plant-store mx-4'>
             <div className='row m-0 p-5 '>
               <div className='col-lg-6 col-12 slide-left visible'>
@@ -187,7 +204,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={pots1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -204,7 +221,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   {/* <button className='sales-offer'>Sale 50%</button> */}
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={pots1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -221,7 +238,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={pots1} className='w-100 ' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -238,7 +255,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={pots1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -261,7 +278,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={seller1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -278,7 +295,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   {/* <button className='sales-offer'>Sale 50%</button> */}
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={seller1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -295,7 +312,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={seller1} className='w-100 ' />
                   <div class="row m-0 product-details">
                     <div class="col-9">
@@ -312,7 +329,7 @@ function Home() {
               <div className='col-3'>
                 <div className={isAdded ? 'normal-box' : 'box-view'}>
                   <button className='sales-offer'>Sale 50%</button>
-                  <span className='float-end'><img src={isLiked ? like : unlike} alt="Like Button" onClick={() => product_like()} /></span>
+                  <span className='float-end'><img src={isLiked ? likes : unlike} alt="Like Button" onClick={() => product_like()} /></span>
                   <img src={seller1} className='w-100' />
                   <div class="row m-0 product-details">
                     <div class="col-9">

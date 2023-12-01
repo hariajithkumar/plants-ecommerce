@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../Common/assets/css/auth.css'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faLock, faEnvelope, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
@@ -15,24 +16,47 @@ import loginImg from '../Common/assets/image/login_img.png'
 import mail from '../Common/assets/image/mail.png'
 import usericon from '../Common/assets/image/usericon.png'
 import lock from '../Common/assets/image/lock.png'
-import facebook from '../Common/assets/image/Facebook.png'
-import twitter from '../Common/assets/image/twitter.png'
-import google from '../Common/assets/image/google.png'
+import phone from '../Common/assets/image/phone.png'
 
+import axios from 'axios';
+import { setregisterDetails } from '../Redux/CreateSlice';
 
 
 function Register() {
+    const { registerDetails } = useSelector((state) => state.plants_product)
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    const [confirmPassword, setConfirmPassword] = useState(false);
+    const [confirm, setconfirm] = useState(false);
     const toggleConfiemPasswordVisibility = () => {
-        setConfirmPassword(!confirmPassword);
+        setconfirm(!confirm);
     };
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const login = () => {
         navigate('/')
+    }
+
+    const signup = async() => {
+        if (registerDetails.password == registerDetails.password_confirm) {
+            try {
+                console.log(registerDetails)
+                // const apiUrl = 'https://webbitech.co.in/ecommerce/public/api/register';
+                const {data} = await axios.get('https://webbitech.co.in/ecommerce/public/api/register',registerDetails);
+                console.log(data)
+                if (data.success == true) {
+                    alert('register Successfully');
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            console.log(registerDetails)
+            alert("don't match password and confirm password")
+        }
+
     }
     return (
         <div className='login-section'>
@@ -47,7 +71,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={mail} />
                             </span>
-                            <input type="email" className="form-control border-0 border-bottom" id="email"  placeholder="Enter your email" />
+                            <input type="email" className="form-control border-0 border-bottom" id="email" name='email' value={registerDetails.email} placeholder="Enter your email" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,email: e.target.value }))} />
                         </div>
                     </div>
                     <div className="my-3">
@@ -56,7 +80,16 @@ function Register() {
                             <span className="pe-2">
                                 <img src={usericon} />
                             </span>
-                            <input type="text" className="form-control border-0 border-bottom" id="password" placeholder="Enter your name" />
+                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your name" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,name: e.target.value }))} />
+                        </div>
+                    </div>
+                    <div className="my-3">
+                        <label htmlFor="text" className="form-label">Mobile Number</label>
+                        <div className="input-group">
+                            <span className="pe-2">
+                                <img src={phone} />
+                            </span>
+                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your mobile number" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,mobile: e.target.value }))} />
                         </div>
                     </div>
                     <div className="my-3">
@@ -65,8 +98,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input type={showPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Enter your password"   
-                            />
+                            <input type={showPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Enter your password" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,password: e.target.value }))} />
                             <button className="btn " type="button" onClick={togglePasswordVisibility}>
                                 <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                             </button>
@@ -78,18 +110,18 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input type={confirmPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Confrim your Password" />
+                            <input type={confirm ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Confrim your Password" onChange={(e) => dispatch(setregisterDetails({...registerDetails,password_confirm: e.target.value }))} />
                             <button
                                 className="btn "
                                 type="button"
                                 onClick={toggleConfiemPasswordVisibility}
                             >
-                                <FontAwesomeIcon icon={confirmPassword ? faEye : faEyeSlash} />
+                                <FontAwesomeIcon icon={confirm ? faEye : faEyeSlash} />
                             </button>
                         </div>
                     </div>
                     <div className='btn-section'>
-                        <button className='button'>Register</button>
+                        <button className='button' onClick={() => signup()}>Register</button>
                     </div>
                 </div>
                 <div className='col-lg-6 col-md-12 col-12 bg-color p-4 text-center mt-lg-0 mt-5'>
