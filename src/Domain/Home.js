@@ -28,14 +28,15 @@ import contact from '../Common/assets/image/contact.png'
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDetails, setLikedProducts, setlikeProduct, setlikescount } from '../Redux/CreateSlice';
+import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDetails, setLikedProducts, setlikeProduct, setlikescount, setShopProducts, setshopcount } from '../Redux/CreateSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const { isLiked, isAdded, isAddproduct, isAddproductcount, allplantsDetails, likedProducts,likescount } = useSelector((state) => state.plants_product)
+  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount, } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // like product click fn 
   const totallikes = likedProducts.map((data) => data.id);
 
   const handleLikeClick = (product) => {
@@ -45,27 +46,42 @@ function Home() {
     if (totallikes.includes(isLikeds)) {
       // If it's already liked, remove it from the likedProducts array
       dispatch(setLikedProducts(likedProducts.filter((likedProduct) => likedProduct.id !== isLikeds)));
-      dispatch(setlikescount(likescount-1))
+      dispatch(setlikescount(likescount - 1))
     } else {
       // If it's not liked, add it to the likedProducts array
       dispatch(setLikedProducts([...likedProducts, product]));
-      dispatch(setlikescount(likescount+1))
+      dispatch(setlikescount(likescount + 1))
 
     }
   };
-  console.log(likescount)
+
+  // shop product click fn 
+  const totalshops = shopProducts.map((data) => data.id);
+
+  const handleShopClick = (product,id,price) => {
+    const isShops = product.id;
+    // Check if the product ID is in the likedProducts array
+    if (totalshops.includes(isShops)) {
+      // If it's already liked, remove it from the likedProducts array
+      dispatch(setShopProducts(shopProducts.filter((shopItems) => shopItems.id !== isShops)));
+      dispatch(setshopcount(shopcount - 1))
+    } else {
+      // If it's not liked, add it to the likedProducts array
+      // dispatch(setproductitemDetails([...product_item,{...data,id,amount:price,qty:1}]))
+      dispatch(setShopProducts([...shopProducts,{...product,id,amount:price,qty:1}]));
+      dispatch(setshopcount(shopcount + 1))
+    }
+  };
+console.log(shopProducts)
+  const product_add = () => {
+
+  }
+  const product_remove = () => {
+    
+  }
   const product_like = () => {
     console.log("ajith")
   }
-  const product_add = (id) => {
-    dispatch(setisAdded(false))
-    dispatch(setisIncrement())
-  }
-  const product_remove = (id) => {
-    dispatch(setisAdded(true))
-    dispatch(setisDecrement())
-  }
-
   const all_product = () => {
     navigate('/Allproduct')
   }
@@ -137,15 +153,15 @@ function Home() {
 
               {allplantsDetails && allplantsDetails.map((data, index) => {
                 return (
-                  <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2'>
-                    <div className={isAdded ? 'normal-box' : 'box-view'}>
+                  <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2 d-flex align-self-stretch'>
+                    <div className={totalshops.includes(data.id) ?'normal-box' : 'box-view'}>
                       <button className='sales-offer'>Sale {data.discount_price}</button>
                       <span
                         className='float-end'
                         onClick={() => handleLikeClick(data)}
                       >
                         <img
-                          src={likedProducts.includes(data) ? likes : unlike}
+                          src={totallikes.includes(data.id) ? likes : unlike}
                           alt="Like Button"
                         />
                       </span>
@@ -157,7 +173,16 @@ function Home() {
                           <img src={rating} className='ms-2' />
                         </div>
                         <div class="col-3">
-                          {isAdded ? (<><img src={add} alt="Like Button" onClick={() => product_add(data.id)} /></>) : (<> <img src={remove} alt="Remove Button" onClick={() => product_remove(data.id)} /> </>)}
+                          <span
+                            className='float-end'
+                            id={data.id} value={data.id}
+                            onClick={() => handleShopClick(data,data.id,data.total_price)}
+                          >
+                            <img
+                              src={totalshops.includes(data.id) ? add : remove}
+                              alt="Shop Button"
+                            />
+                          </span>
                         </div>
                       </div>
                     </div>

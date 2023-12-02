@@ -18,10 +18,20 @@ import { setLikedProducts, setlikescount } from '../Redux/CreateSlice';
 
 
 function Wishlist() {
-    const { likedProducts, likescount } = useSelector((state) => state.plants_product)
+    const { likedProducts, likescount } = useSelector((state) => state.plants_product);
+    const dispatch = useDispatch();
 
     const [statuslevel, setStatusLevel] = useState(true)
 
+    const deleteitem = (id) => {
+        const updatedItems = likedProducts.filter(item =>
+            item.id !== id
+            
+        );
+            dispatch(setLikedProducts(updatedItems))
+            dispatch(setlikescount(likescount-1))
+        };
+        console.log(likedProducts)
     return (
         <div>
             <Header />
@@ -62,7 +72,7 @@ function Wishlist() {
                                                     </td>
                                                     <td className='py-5'><h6>{data.total_price}</h6></td>
                                                     <td className='py-5'><span>In Stock</span></td>
-                                                    <td className='py-5'><button>Move to Cart</button><img src={cancel} className='mx-3' /></td>
+                                                    <td className='py-5'><button>Move to Cart</button><img src={cancel} className='mx-3' onClick={()=>deleteitem(data.id)}/></td>
                                                 </tr>
                                             </>
                                         )

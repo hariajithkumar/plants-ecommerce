@@ -40,7 +40,7 @@ function Login() {
    
     const loginVerify = async () => {
         try {
-            const apiUrl = 'https://webbitech.co.in/ecommerce/public/api/login';
+            const apiUrl = 'https://webbitech.co.in/ecommerce/public/login';
             const {data} = await axios.post(apiUrl,loginDetails);
             if (data.success == true) {
                 alert('Login Successfully');
