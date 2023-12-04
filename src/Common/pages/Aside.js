@@ -18,18 +18,18 @@ function Aside() {
     const [sliderValue, setSliderValue] = useState(0); // Initial value
     const dispatch = useDispatch();
 
-   
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(50000); // Assuming a maximum price, adjust as needed
-
+    // const handleSliderChange = (e) => {
+    //     setMaxPrice(parseInt(e.target.value, 10));
+    // };
 
     useEffect(() => {
         // Filter products based on the max price
         const filtered = allplantsDetails.filter(product => product.total_price <= maxPrice);
         dispatch(setFilteredProducts(filtered));
     }, [maxPrice, allplantsDetails]);
-    // filterProducts(maxPrice);
-    console.log(filteredProducts)
+
     return (
         <>
             <aside className='my-5'>
@@ -102,22 +102,22 @@ function Aside() {
                                 </button>
                             </h2>
                             <div id="collapseThree" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                {/* <div className="accordion-body">
+                                <div className="accordion-body">
                                     <div className="mb-3">
                                         <input
                                             type="range"
                                             className="form-range custom-range range-slider"
                                             id="customRange"
-                                            value={sliderValue}
-                                            onChange={handleSliderChange}
+                                            value={maxPrice}
+                                            onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
                                             step="1"
                                             min="0"
                                             max="10000"
                                         />
                                     </div>
-                                    <p>Price: {sliderValue}</p>
-                                </div> */}
-                                <label>
+                                    <p>Price: {maxPrice}</p>
+                                </div>
+                                {/* <label>
                                     Price Range:
                                     <input
                                         type="range"
@@ -138,7 +138,7 @@ function Aside() {
                                         onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
                                     />
                                     {maxPrice}
-                                </label>
+                                </label> */}
 
                             </div>
                         </div>
