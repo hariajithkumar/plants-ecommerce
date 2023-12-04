@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/css/aside.css'
+import axios from "axios";
 
 // image path 
 
@@ -9,63 +10,26 @@ import star3 from '../assets/image/Rating3.png'
 import star4 from '../assets/image/Rating4.png'
 import star5 from '../assets/image/Rating5.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { setpriceFilter } from '../../Redux/CreateSlice'
+import { setFilteredProducts, setpriceFilter } from '../../Redux/CreateSlice'
 
 
 function Aside() {
-    const { allplantsDetails, priceFilter } = useSelector((state) => state.plants_product)
+    const { allplantsDetails, priceFilter,filteredProducts } = useSelector((state) => state.plants_product)
     const [sliderValue, setSliderValue] = useState(0); // Initial value
     const dispatch = useDispatch();
 
-    const handleSliderChange = (e) => {
-        setSliderValue(parseInt(e.target.value, 10));
-        dispatch(setpriceFilter(sliderValue))
-    };
-    const [products, setProducts] = useState([]); // Original product list
-    const [filteredProducts, setFilteredProducts] = useState([]); // Filtered product list
+   
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000); // Assuming a maximum price, adjust as needed
+    const [maxPrice, setMaxPrice] = useState(50000); // Assuming a maximum price, adjust as needed
+
 
     useEffect(() => {
-        // Fetch the list of products from your API
-        const fetchProducts = async () => {
-            try {
-                const response = allplantsDetails;
-                setProducts(response);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
-
-        fetchProducts();
-    }, []); // Fetch products once when the component mounts
-
-    // useEffect(() => {
-    //     // Filter products when minPrice or maxPrice change
-    //     const filtered = products.filter((product) => {
-    //       const price = product.total_price; // Adjust this based on your actual product structure
-    //       if(price<=minPrice){
-    //         console.log('1')
-    //       }
-    //       return price >= minPrice && price <= maxPrice;
-    //     });
-
-    //     // Update the filtered product list in the state
-    //     setFilteredProducts(filtered);
-    //   }, [minPrice, maxPrice, products]);
-    useEffect(() => {
-        // Filter products when minPrice changes
-        const filtered = allplantsDetails.filter((product) => {
-            const price = parseInt(product.total_price,10); // Adjust this based on your actual product structure
-            return price < minPrice;
-        });
-        console.log(1,filtered)
-        // Update the filtered product list in the state
-        setFilteredProducts(filtered);
-    }, [products]);
-    // console.log(products)
+        // Filter products based on the max price
+        const filtered = allplantsDetails.filter(product => product.total_price <= maxPrice);
+        dispatch(setFilteredProducts(filtered));
+    }, [maxPrice, allplantsDetails]);
+    // filterProducts(maxPrice);
     console.log(filteredProducts)
-    // console.log(sliderValue)
     return (
         <>
             <aside className='my-5'>
@@ -158,9 +122,10 @@ function Aside() {
                                     <input
                                         type="range"
                                         min={0}
-                                        max={1000} // Assuming a maximum price, adjust as needed
+                                        max={50000} // Assuming a maximum price, adjust as needed
                                         value={minPrice}
                                         onChange={(e) => setMinPrice(parseInt(e.target.value, 10))}
+
                                     />
                                     {minPrice}
                                 </label>
@@ -168,7 +133,7 @@ function Aside() {
                                     <input
                                         type="range"
                                         min={0}
-                                        max={1000} // Assuming a maximum price, adjust as needed
+                                        max={50000} // Assuming a maximum price, adjust as needed
                                         value={maxPrice}
                                         onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
                                     />

@@ -27,6 +27,7 @@ export const CrateSlice = createSlice({
             password_confirm: ""
         },
         allplantsDetails: "",
+        filteredProducts: [],
         likedProducts: [],
         shopProducts: [],
         likescount: 0,
@@ -65,6 +66,9 @@ export const CrateSlice = createSlice({
         },
         setallplantDetails: (state, action) => {
             state.allplantsDetails = action.payload
+        },
+        setFilteredProducts: (state, action) => {
+            state.filteredProducts = action.payload
         },
         setisLiked: (state, action) => {
             state.isLiked = action.payload
@@ -111,6 +115,6 @@ export const CrateSlice = createSlice({
     }
 })
 
-export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails,setFilteredProducts, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce } = CrateSlice.actions
 export default CrateSlice.reducer
 

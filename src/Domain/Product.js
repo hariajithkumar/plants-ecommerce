@@ -23,7 +23,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 function Product() {
 
-  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount,minPrice,priceFilter } = useSelector((state) => state.plants_product)
+  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount,minPrice,priceFilter,filteredProducts } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ function Product() {
       dispatch(setshopcount(shopcount + 1))
     }
   };
-  console.log(shopProducts)
+  // console.log(shopProducts)
   const product_add = () => {
 
   }
@@ -96,7 +96,7 @@ function Product() {
             <div className='product-list mt-5'>
               <div className='row m-0  py-4'>
 
-                {allplantsDetails && allplantsDetails.map((data, index) => {
+                {allplantsDetails && filteredProducts.map((data, index) => {
                   return (
                     <div className='col-lg-4 col-md-4 col-sm-6 col-12 mt-2 d-flex align-self-stretch'>
                       <div className={totalshops.includes(data.id) ? 'normal-box' : 'box-view'}>
