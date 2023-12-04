@@ -39,19 +39,26 @@ function Register() {
         navigate('/')
     }
 
-    const signup = async() => {
+    const signup = async () => {
         if (registerDetails.password == registerDetails.password_confirm) {
-            try {
-                console.log(registerDetails)
-                // const apiUrl = 'https://webbitech.co.in/ecommerce/public/api/register';
-                const {data} = await axios.get('https://webbitech.co.in/ecommerce/public/api/register',registerDetails);
-                console.log(data)
-                if (data.success == true) {
-                    alert('register Successfully');
-                }
-            } catch (error) {
-                console.log(error)
-            }
+            axios.get(`https://webbitech.co.in/ecommerce/public/api/register`, {
+                params: {
+                    name: registerDetails.name,
+                    email: registerDetails.email,
+                    mobile: registerDetails.mobile,
+                    password: registerDetails.password,
+                    password_confirm: registerDetails.password_confirm,
+                },
+            })
+                .then(response => {
+                    // Handle the API response
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    // Handle errors
+                    alert("The mobile has already been taken.")
+                });
+
         } else {
             console.log(registerDetails)
             alert("don't match password and confirm password")
@@ -71,7 +78,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={mail} />
                             </span>
-                            <input type="email" className="form-control border-0 border-bottom" id="email" name='email' value={registerDetails.email} placeholder="Enter your email" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,email: e.target.value }))} />
+                            <input type="email" className="form-control border-0 border-bottom" id="email" name='email' value={registerDetails.email} placeholder="Enter your email" onChange={(e) => dispatch(setregisterDetails({ ...registerDetails, email: e.target.value }))} />
                         </div>
                     </div>
                     <div className="my-3">
@@ -80,7 +87,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={usericon} />
                             </span>
-                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your name" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,name: e.target.value }))} />
+                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your name" required onChange={(e) => dispatch(setregisterDetails({ ...registerDetails, name: e.target.value }))} />
                         </div>
                     </div>
                     <div className="my-3">
@@ -89,7 +96,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={phone} />
                             </span>
-                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your mobile number" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,mobile: e.target.value }))} />
+                            <input type="text" className="form-control border-0 border-bottom" id="name" placeholder="Enter your mobile number" required onChange={(e) => dispatch(setregisterDetails({ ...registerDetails, mobile: e.target.value }))} />
                         </div>
                     </div>
                     <div className="my-3">
@@ -98,7 +105,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input type={showPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Enter your password" required onChange={(e) => dispatch(setregisterDetails({...registerDetails,password: e.target.value }))} />
+                            <input type={showPassword ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Enter your password" required onChange={(e) => dispatch(setregisterDetails({ ...registerDetails, password: e.target.value }))} />
                             <button className="btn " type="button" onClick={togglePasswordVisibility}>
                                 <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                             </button>
@@ -110,7 +117,7 @@ function Register() {
                             <span className="pe-2">
                                 <img src={lock} />
                             </span>
-                            <input type={confirm ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Confrim your Password" onChange={(e) => dispatch(setregisterDetails({...registerDetails,password_confirm: e.target.value }))} />
+                            <input type={confirm ? 'text' : 'password'} className="form-control border-0 border-bottom" id="password" placeholder="Confrim your Password" onChange={(e) => dispatch(setregisterDetails({ ...registerDetails, password_confirm: e.target.value }))} />
                             <button
                                 className="btn "
                                 type="button"

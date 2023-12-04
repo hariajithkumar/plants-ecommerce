@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react';
 import '../assets/css/aside.css'
 
 // image path 
@@ -9,14 +8,64 @@ import star2 from '../assets/image/Rating2.png'
 import star3 from '../assets/image/Rating3.png'
 import star4 from '../assets/image/Rating4.png'
 import star5 from '../assets/image/Rating5.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { setpriceFilter } from '../../Redux/CreateSlice'
 
 
 function Aside() {
+    const { allplantsDetails, priceFilter } = useSelector((state) => state.plants_product)
     const [sliderValue, setSliderValue] = useState(0); // Initial value
+    const dispatch = useDispatch();
 
     const handleSliderChange = (e) => {
         setSliderValue(parseInt(e.target.value, 10));
+        dispatch(setpriceFilter(sliderValue))
     };
+    const [products, setProducts] = useState([]); // Original product list
+    const [filteredProducts, setFilteredProducts] = useState([]); // Filtered product list
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(1000); // Assuming a maximum price, adjust as needed
+
+    useEffect(() => {
+        // Fetch the list of products from your API
+        const fetchProducts = async () => {
+            try {
+                const response = allplantsDetails;
+                setProducts(response);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []); // Fetch products once when the component mounts
+
+    // useEffect(() => {
+    //     // Filter products when minPrice or maxPrice change
+    //     const filtered = products.filter((product) => {
+    //       const price = product.total_price; // Adjust this based on your actual product structure
+    //       if(price<=minPrice){
+    //         console.log('1')
+    //       }
+    //       return price >= minPrice && price <= maxPrice;
+    //     });
+
+    //     // Update the filtered product list in the state
+    //     setFilteredProducts(filtered);
+    //   }, [minPrice, maxPrice, products]);
+    useEffect(() => {
+        // Filter products when minPrice changes
+        const filtered = allplantsDetails.filter((product) => {
+            const price = parseInt(product.total_price,10); // Adjust this based on your actual product structure
+            return price < minPrice;
+        });
+        console.log(1,filtered)
+        // Update the filtered product list in the state
+        setFilteredProducts(filtered);
+    }, [products]);
+    // console.log(products)
+    console.log(filteredProducts)
+    // console.log(sliderValue)
     return (
         <>
             <aside className='my-5'>
@@ -89,7 +138,7 @@ function Aside() {
                                 </button>
                             </h2>
                             <div id="collapseThree" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                <div className="accordion-body">
+                                {/* <div className="accordion-body">
                                     <div className="mb-3">
                                         <input
                                             type="range"
@@ -103,7 +152,29 @@ function Aside() {
                                         />
                                     </div>
                                     <p>Price: {sliderValue}</p>
-                                </div>
+                                </div> */}
+                                <label>
+                                    Price Range:
+                                    <input
+                                        type="range"
+                                        min={0}
+                                        max={1000} // Assuming a maximum price, adjust as needed
+                                        value={minPrice}
+                                        onChange={(e) => setMinPrice(parseInt(e.target.value, 10))}
+                                    />
+                                    {minPrice}
+                                </label>
+                                <label>
+                                    <input
+                                        type="range"
+                                        min={0}
+                                        max={1000} // Assuming a maximum price, adjust as needed
+                                        value={maxPrice}
+                                        onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
+                                    />
+                                    {maxPrice}
+                                </label>
+
                             </div>
                         </div>
                         <hr className='m-0' />
@@ -117,23 +188,23 @@ function Aside() {
                                 <div className="accordion-body">
                                     <div className="mb-3 form-check">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                        <img src={star1} alt='star1'/>
+                                        <img src={star1} alt='star1' />
                                     </div>
                                     <div className="mb-3 form-check">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                        <img src={star2} alt='star3'/>
+                                        <img src={star2} alt='star3' />
                                     </div>
                                     <div className="mb-3 form-check">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                        <img src={star3} alt='star3'/>
+                                        <img src={star3} alt='star3' />
                                     </div>
                                     <div className="mb-3 form-check">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                        <img src={star4} alt='star4'/>
+                                        <img src={star4} alt='star4' />
                                     </div>
                                     <div className="mb-3 form-check">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                        <img src={star5} alt='star5'/>
+                                        <img src={star5} alt='star5' />
                                     </div>
                                 </div>
                             </div>

@@ -58,7 +58,7 @@ function Home() {
   // shop product click fn 
   const totalshops = shopProducts.map((data) => data.id);
 
-  const handleShopClick = (product,id,price) => {
+  const handleShopClick = (product, id, price) => {
     const isShops = product.id;
     // Check if the product ID is in the likedProducts array
     if (totalshops.includes(isShops)) {
@@ -68,16 +68,16 @@ function Home() {
     } else {
       // If it's not liked, add it to the likedProducts array
       // dispatch(setproductitemDetails([...product_item,{...data,id,amount:price,qty:1}]))
-      dispatch(setShopProducts([...shopProducts,{...product,id,amount:price,qty:1}]));
+      dispatch(setShopProducts([...shopProducts, { ...product, id, amount: price, qty: 1 }]));
       dispatch(setshopcount(shopcount + 1))
     }
   };
-console.log(shopProducts)
+  console.log(shopProducts)
   const product_add = () => {
 
   }
   const product_remove = () => {
-    
+
   }
   const product_like = () => {
     console.log("ajith")
@@ -96,6 +96,7 @@ console.log(shopProducts)
   return (
     <div>
       <Header />
+      
       <section className='pt-3'>
         <div className='container-90'>
           {/* <header section start  */}
@@ -154,7 +155,7 @@ console.log(shopProducts)
               {allplantsDetails && allplantsDetails.map((data, index) => {
                 return (
                   <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2 d-flex align-self-stretch'>
-                    <div className={totalshops.includes(data.id) ?'normal-box' : 'box-view'}>
+                    <div className={totalshops.includes(data.id) ? 'normal-box' : 'box-view'}>
                       <button className='sales-offer'>Sale {data.discount_price}</button>
                       <span
                         className='float-end'
@@ -176,7 +177,7 @@ console.log(shopProducts)
                           <span
                             className='float-end'
                             id={data.id} value={data.id}
-                            onClick={() => handleShopClick(data,data.id,data.total_price)}
+                            onClick={() => handleShopClick(data, data.id, data.total_price)}
                           >
                             <img
                               src={totalshops.includes(data.id) ? add : remove}

@@ -57,8 +57,6 @@ function Wishlist() {
                                         return (
                                             <>
                                                 <tr className='total-wish'>
-
-
                                                     <td className='wish-product'>
                                                         <div className='row m-0 pt-2'>
                                                             <div className='col-4'>

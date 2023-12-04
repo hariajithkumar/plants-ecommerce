@@ -11,24 +11,34 @@ export const CrateSlice = createSlice({
             password: ''
         },
         logoutDetails: false,
+        forgetDetails: {
+            email: ''
+        },
+        resetpasswordDetails: {
+            email: '',
+            token:'',
+            password:''
+        },
         registerDetails: {
             name: "",
             email: "",
-            mobile:"",
+            mobile: "",
             password: "",
             password_confirm: ""
         },
-        allplantsDetails : "",
-        likedProducts : [],
-        shopProducts : [],
-        likescount : 0,
-        shopcount:0,
-        isLiked :false,
-        isAdded :false,
-        activeItem:'Account',
-        totalItemShop:0,
-        finalItemPrice:''
-        
+        allplantsDetails: "",
+        likedProducts: [],
+        shopProducts: [],
+        likescount: 0,
+        shopcount: 0,
+        isLiked: false,
+        isAdded: false,
+        activeItem: 'Account',
+        totalItemShop: 0,
+        finalItemPrice: '',
+        minPrice:0,
+        priceFilter: [],
+
     },
 
     reducers: {
@@ -38,22 +48,28 @@ export const CrateSlice = createSlice({
         setprofileDetails: (state, action) => {
             state.profileDetails = action.payload
         },
-        setloginDetails:(state,action)=>{
+        setloginDetails: (state, action) => {
             state.loginDetails = action.payload
         },
-        setlogoutDetails:(state,action)=>{
+        setlogoutDetails: (state, action) => {
             state.logoutDetails = action.payload
         },
-        setregisterDetails:(state,action)=>{
+        setforgetDetails: (state, action) => {
+            state.forgetDetails = action.payload
+        },
+        setresetpasswordDetails: (state, action) => {
+            state.resetpasswordDetails = action.payload
+        },
+        setregisterDetails: (state, action) => {
             state.registerDetails = action.payload
         },
-        setallplantDetails:(state,action)=>{
+        setallplantDetails: (state, action) => {
             state.allplantsDetails = action.payload
         },
-        setisLiked:(state,action)=>{
+        setisLiked: (state, action) => {
             state.isLiked = action.payload
         },
-        setisAdded:(state,action)=>{
+        setisAdded: (state, action) => {
             state.isAdded = action.payload
         },
         setisIncrement: (state) => {
@@ -62,32 +78,39 @@ export const CrateSlice = createSlice({
         setisDecrement: (state) => {
             state.isAddproductcount -= 1
         },
-        setActiveItem:(state,action)=>{
+        setActiveItem: (state, action) => {
             state.activeItem = action.payload
         },
-        setLikedProducts:(state,action)=>{
+        setLikedProducts: (state, action) => {
             state.likedProducts = action.payload
         },
-        setlikescount: (state,action) => {
+        setlikescount: (state, action) => {
             state.likescount = action.payload
         },
-        setShopProducts:(state,action)=>{
+        setShopProducts: (state, action) => {
             state.shopProducts = action.payload
         },
-        setshopcount: (state,action) => {
+        setshopcount: (state, action) => {
             state.shopcount = action.payload
         },
-        settotalItemShop: (state,action) => {
+        settotalItemShop: (state, action) => {
             state.totalItemShop = action.payload
         },
-        setfinalItemPrice: (state,action) => {
+        setfinalItemPrice: (state, action) => {
             state.finalItemPrice = action.payload
         },
-        
-        
+        setminPirce: (state, action) => {
+            state.minPirce = action.payload
+        },
+        setpriceFilter: (state, action) => {
+            state.priceFilter = action.payload
+        },
+
+
+
     }
 })
 
-export const { setClass1Hide, setprofileDetails,setloginDetails,setlogoutDetails,setregisterDetails,setisLiked,setisAdded,setisIncrement,setisDecrement,setActiveItem,setallplantDetails,setLikedProducts,setlikescount,setShopProducts,setshopcount,settotalItemShop,setfinalItemPrice } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce } = CrateSlice.actions
 export default CrateSlice.reducer
 

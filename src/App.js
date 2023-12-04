@@ -19,6 +19,8 @@ import Placeorder from './Domain/Placeorder';
 import Address from './Domain/Address';
 import ProductOrderForm from './Domain/ProductOrderForm';
 import Orderprocess from './Domain/Orderprocess';
+import Forgetpassword from './Domain/Forgetpassword';
+import Resetpassword from './Domain/Resetpassword';
 
 function App() {
   useEffect(() => {
@@ -47,6 +49,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='' element={<Login />} />
+        <Route path='/Forgetpassword' element={<Forgetpassword />} />
+        <Route path='/Resetpassword' element={<Resetpassword />} />
         <Route path='/register' element={<Register />} />
         <Route path='/home' element={<Home />} />
         <Route path='/Allproduct' element={<Product />} />
