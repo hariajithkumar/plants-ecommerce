@@ -139,7 +139,12 @@ nav .active {
     font-weight: 500;
     line-height: 23px;
 }
-
+nav .custom-active {
+    color: #FFF !important;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 23px;
+}
 .option-list {
     color: #FFF !important;
     font-size: 13px;

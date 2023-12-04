@@ -5,13 +5,13 @@ import '../assets/css/regular.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
 // image path
 import headphone from '../assets/image/Headset.png'
-import location from '../assets/image/location.png'
+import locations from '../assets/image/location.png'
 import logo from '../assets/image/logo.png'
 import shop from '../assets/image/header1.png'
 import heart from '../assets/image/header2.png'
@@ -23,11 +23,14 @@ import whitesearch from '../assets/image/white_search.png'
 import whiteshop from '../assets/image/white_shop.png'
 import whitenav from '../assets/image/whitenav.png'
 function Header() {
-    const { likescount,shopcount } = useSelector((state) => state.plants_product)
+    const { likescount, shopcount } = useSelector((state) => state.plants_product)
 
     const [isSticky, setIsSticky] = useState(false);
-
+    const location = useLocation();
     const navigate = useNavigate()
+
+    const { pathname, search, hash } = location;
+
     const hearts = () => {
         navigate('/Wishlist')
     }
@@ -60,7 +63,7 @@ function Header() {
                 <div className='container-90 d-lg-block d-none'>
                     <div className='row m-0 p-2'>
                         <div className='col-lg-6 col-md-12 col-12 text-start p-0'>
-                            <h4><img src={location} className='mx-2 p-0' />PO BOX:115786 - Al Warsan3, Dubai, UAE.</h4>
+                            <h4><img src={locations} className='mx-2 p-0' />PO BOX:115786 - Al Warsan3, Dubai, UAE.</h4>
                         </div>
                         <div className='col-lg-6 col-md-12 col-12 p-0'>
                             <h4 className='text-lg-end text-center phone_number'><img src={headphone} className='mx-2' />+971 42872900</h4>
@@ -111,28 +114,19 @@ function Header() {
                             </button>
                             <a className="navbar-brand d-lg-none d-md-none" href="#"><img src={mobilelogo} /></a>
                             <div className='icon-section d-lg-none d-md-none'>
-                                <img src={whiteheart} alt='heart' className='mx-3 mobile-margin' onClick={() => hearts()}/>
-                                <img src={whiteshop} alt='shop' className='mx-3 mobile-margin' onClick={() => shops()}/>
-                                <img src={whiteprofile} className='mx-3 mobile-margin' onClick={() => userProfile()}/>
+                                <img src={whiteheart} alt='heart' className='mx-3 mobile-margin' onClick={() => hearts()} />
+                                <img src={whiteshop} alt='shop' className='mx-3 mobile-margin' onClick={() => shops()} />
+                                <img src={whiteprofile} className='mx-3 mobile-margin' onClick={() => userProfile()} />
                                 <img src={whitesearch} className='mx-3 mobile-margin' />
                                 <span className='item-count'>{shopcount}</span>
                                 <span className='like-count'>{likescount}</span>
                             </div>
                             <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                                <ul className="navbar-nav py-2 nav-content">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                    </li>
-                                    <li className="nav-item dropdown" aria-labelledby="dropdownMenuButton">
-                                        <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Indoor Plants
-                                            <FontAwesomeIcon icon={faChevronDown} style={{ color: "#fafafa", }} className='ps-2' />
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
+                                <ul class="navbar-nav py-2 nav-content">
+                                    <li className='nav-item d-flex align-items-center'>
+                                        <NavLink exact to={{ pathname: '/home' }} className={`${pathname === '/home' ? 'active' : 'custom-active'} text-decoration-none`}>
+                                            Home
+                                        </NavLink>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,45 +139,30 @@ function Header() {
                                             <li><a className="dropdown-item" href="#">Something else here</a></li>
                                         </ul>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <li className='d-flex align-items-center'>
+                                        <NavLink exact to="/package" className={`${pathname === '/package' ? 'active' : 'custom-active'} text-decoration-none`}>
+                                            Indoor Plants
+                                        </NavLink>
+                                    </li>
+                                    <li className='d-flex align-items-center'>
+                                        <NavLink exact to="/about" className={`${pathname === '/about' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Flower Pots / Planters
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
+                                        </NavLink>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <li className='d-flex align-items-center'>
+                                        <NavLink exact to="/faq" className={`${pathname === '/faq' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Seeds & Grow Kits
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
+                                        </NavLink>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <li className='d-flex align-items-center'>
+                                        <NavLink exact to="/contact" className={`${pathname === '/contact' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Planting Arrangements
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
+                                        </NavLink>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle option-list" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <li className='d-flex align-items-center'>
+                                        <NavLink exact to="/contact" className={`${pathname === '/contact' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Planting Supplies
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </div>
