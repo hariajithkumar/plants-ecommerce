@@ -107,7 +107,17 @@
     font-weight: 600;
     line-height: 26px;
 }
-
+.shop-card{
+    margin-left: 20px;
+    padding: 8px 100px;
+    border-radius: 43px;
+    background: #F2F2F2;
+    border: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+}
 .cate {
     color: #1A1A1A;
     font-size: 14px;

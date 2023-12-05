@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Common/pages/Header'
 import Footer from '../Common/pages/Footer'
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import '../Common/assets/css/description.css'
 
@@ -12,31 +13,33 @@ import { faShop, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
 
 // image path 
-import description1 from '../Common/assets/image/description1.png'
-import description2 from '../Common/assets/image/description2.png'
-import description3 from '../Common/assets/image/description3.png'
+
 import description4 from '../Common/assets/image/description4.png'
 import Rating from '../Common/assets/image/Rating.png'
-import shop from '../Common/assets/image/white-shop.png'
-import heart from '../Common/assets/image/shop-heart.png'
-import icon1 from '../Common/assets/image/footer-facebook.png'
-import icon2 from '../Common/assets/image/footer-twitter.png'
-import icon3 from '../Common/assets/image/footer-pinterest.png'
-import icon4 from '../Common/assets/image/footer-instagram.png'
 
 
+
+import { setproductIdDetails, setsingleItemCount } from '../Redux/CreateSlice';
 
 
 function Placeorder() {
-    const [value, setValue] = useState(0);
+    const { productIdDetails, singleItemCount } = useSelector((state) => state.plants_product)
+    const price = 1 * productIdDetails[0].total_price
+    const [value, setValue] = useState(price);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleIncrement = () => {
-        setValue(value + 1);
+        dispatch(setsingleItemCount(singleItemCount + 1))
+        const amount = value;
+        setValue(amount * singleItemCount)
     };
-
+    console.log(value)
     const handleDecrement = () => {
-        setValue(value - 1);
+        dispatch(setsingleItemCount(singleItemCount - 1))
+        const amount = productIdDetails[0].total_price
+        setValue(amount * singleItemCount)
     };
 
     const [activeTab, setActiveTab] = useState('tab1');
@@ -51,6 +54,11 @@ function Placeorder() {
         // navigate('/ProductOrderForm')
         navigate('/Orderprocess')
     }
+    useEffect(() => {
+        dispatch(setproductIdDetails(productIdDetails))
+        setValue(price)
+    }, [])
+    console.log(productIdDetails)
     return (
         <div>
             <div className='description-section'>
@@ -63,32 +71,39 @@ function Placeorder() {
                                     <img src={description4} className='w-100 h-100' />
                                 </div>
                                 <div className='col-6 ms-3 description-details'>
-                                    <h1>Aglaonema <span className='stock'>In Stock</span></h1>
-                                    <img src={Rating} alt='Rating' />
-                                    <span className='review'>4 Reviews</span>
-                                    <br />
-                                    <span className='price pe-2'>AED 14.99</span><span className='text-decoration-line-through rate'>AED 20.99</span>
-                                    <button className='sales-offer'>50% off</button>
-                                    <hr />
-                                    <p>A philodendron white knight has lovely deep red stems that look a lot like pink princess philodendron stems. The leaves, however, are a deep green with bright white variegation. Not ivory, not cream. Bright white.</p>
-                                    <span className="mb-3 count-btn">
-                                        <button
-                                            className="btn sum-btn"
-                                            type="button"
-                                            onClick={handleDecrement}
-                                        >
-                                            -
-                                        </button>
-                                        <span onChange={(e) => setValue(parseInt(e.target.value, 10) || 0)} className='mx-4 count-value'>{value}</span>
-                                        <button
-                                            className="btn sum-btn"
-                                            type="button"
-                                            onClick={handleIncrement}
-                                        >
-                                            +
-                                        </button>
-                                    </span>
-                                    <h4 className='cate my-4'>Category:<span> Indoor Plant</span></h4>
+                                    {productIdDetails && productIdDetails.map((data, index) => {
+                                        return (
+                                            <>
+                                                <h1>{data.title} <span className='stock'>In Stock</span></h1>
+                                                <img src={Rating} alt='Rating' />
+                                                <span className='review'>4 Reviews</span>
+                                                <br />
+                                                <span className='price pe-2'>{data.total_price}</span><span className='text-decoration-line-through rate'>{data.actual_price}</span>
+                                                <button className='sales-offer'>{data.discount_price} off</button>
+                                                <hr />
+                                                <p>{productIdDetails.description}</p>
+                                                <span className="mb-3 count-btn">
+                                                    <button
+                                                        className="btn sum-btn"
+                                                        type="button"
+                                                        onClick={handleDecrement}
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className='mx-4 count-value'>{singleItemCount}</span>
+                                                    <button
+                                                        className="btn sum-btn"
+                                                        type="button"
+                                                        onClick={handleIncrement}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </span>
+                                                <h4 className='cate my-4'>Category:<span> Indoor Plant</span></h4>
+                                            </>
+                                        )
+                                    })}
+
                                 </div>
                             </div>
                             {/* <div className='text-center'>
@@ -101,10 +116,10 @@ function Placeorder() {
                                 <div className='money-details'>
                                     <div className='row m-0'>
                                         <div className='col-6'>
-                                            <h6 className=''>Price (1 item):</h6>
+                                            <h6 className=''>Price ({singleItemCount} item):</h6>
                                         </div>
                                         <div className='col-6 text-end'>
-                                            <h6 className=''>AED 149.9</h6>
+                                            <h6 className=''>{value}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +138,7 @@ function Placeorder() {
                                         <h3 className=''>Total :</h3>
                                     </div>
                                     <div className='col-6 text-end'>
-                                        <h3 className=''>AED 149.9</h3>
+                                        <h3 className=''>{value}</h3>
                                     </div>
                                 </div>
                                 <div className='text-center'>

@@ -18,12 +18,12 @@ import { faArrowRight, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDetails, setLikedProducts, setlikeProduct, setlikescount, setShopProducts, setshopcount } from '../Redux/CreateSlice';
+import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDetails, setLikedProducts, setlikeProduct, setlikescount, setShopProducts, setshopcount, setproductIdDetails } from '../Redux/CreateSlice';
 import { Link, useNavigate } from 'react-router-dom'
 
 function Product() {
 
-  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount,minPrice,priceFilter,filteredProducts } = useSelector((state) => state.plants_product)
+  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount, minPrice, priceFilter, filteredProducts,productIdDetails } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -63,16 +63,7 @@ function Product() {
       dispatch(setshopcount(shopcount + 1))
     }
   };
-  // console.log(shopProducts)
-  const product_add = () => {
 
-  }
-  const product_remove = () => {
-
-  }
-  const product_like = () => {
-    console.log("ajith")
-  }
   const all_product = () => {
     navigate('/Allproduct')
   }
@@ -83,7 +74,11 @@ function Product() {
   useEffect(() => {
     plantproduct();
   }, [])
-
+  const pass = (data)=>{
+    const updatedData = [data];
+    dispatch(setproductIdDetails(updatedData))
+    navigate('/Description');
+  }
   return (
     <div className='product-section'>
       <Header />
@@ -130,11 +125,14 @@ function Product() {
                             </span>
                           </div>
                         </div>
-                        <div className='col-12 d-flex align-items-center justify-content-center mt-3'>
-                          <span className='float-end view-all' onClick={() => all_product()}>View All<FontAwesomeIcon icon={faArrowRight} style={{ color: '#056839' }} className='ps-2' /></span>
+                        <div className='col-12 d-flex align-items-center justify-content-end mt-3'>
+                          <button className='float-end sales-offer' onClick={()=>pass(data)}>view all</button>
+                          {/* <Link to={`/Description/${data.id}`} className='float-end sales-offer text-decoration-none'>View Details</Link>
+                          <Link to={`/Description/${data.id}`}  className='float-end sales-offer text-decoration-none'>
+                            View Details
+                          </Link> */}
                         </div>
                       </div>
-
                     </div>
                   )
                 })}
