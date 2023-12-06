@@ -124,7 +124,7 @@ function Header() {
                             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                 <ul class="navbar-nav py-2 nav-content">
                                     <li className='nav-item d-flex align-items-center'>
-                                        <NavLink exact to={{ pathname: '/home' }} className={`${pathname === '/home' ? 'active' : 'custom-active'} text-decoration-none`}>
+                                        <NavLink exact to={{ pathname: '/' }} className={`${pathname === '/' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Home
                                         </NavLink>
                                     </li>

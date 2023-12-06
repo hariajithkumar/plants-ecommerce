@@ -48,11 +48,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element={<Login />} />
+        <Route path='' element={<Home />} />
+        <Route path='/Login' element={<Login />} />
         <Route path='/Forgetpassword' element={<Forgetpassword />} />
         <Route path='/Resetpassword' element={<Resetpassword />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/home' element={<Home />} />
         <Route path='/Allproduct' element={<Product />} />
         <Route path='/Description' element={<Description />}/>
         <Route path='/Profile' element={<Profile />} />

@@ -92,7 +92,7 @@ function Home() {
   useEffect(() => {
     plantproduct();
   }, [])
-
+  console.log(allplantsDetails)
   return (
     <div>
       <Header />

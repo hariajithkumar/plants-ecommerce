@@ -37,10 +37,10 @@ function Useraside() {
     const location = useLocation();
     const { pathname, search, hash } = location;
     const logout = () => {
-        navigate('/')
+        navigate('/Login')
     }
     const home = () => {
-        navigate('/home')
+        navigate('/')
     }
     
     console.log(pathname)

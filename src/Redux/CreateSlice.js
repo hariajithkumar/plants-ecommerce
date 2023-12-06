@@ -41,6 +41,7 @@ export const CrateSlice = createSlice({
         priceFilter: [],
         productIdDetails:"",
         singleItemCount:0,
+        singleItemPrice:0,
     },
 
     reducers: {
@@ -116,10 +117,13 @@ export const CrateSlice = createSlice({
         setsingleItemCount: (state, action) => {
             state.singleItemCount = action.payload
         },
+        setsingleItemPrice: (state, action) => {
+            state.singleItemPrice = action.payload
+        },
 
     }
 })
 
-export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails,setFilteredProducts, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce,setproductIdDetails,setsingleItemCount } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails,setFilteredProducts, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce,setproductIdDetails,setsingleItemCount,setsingleItemPrice } = CrateSlice.actions
 export default CrateSlice.reducer
 

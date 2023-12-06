@@ -7,42 +7,55 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../Common/assets/css/description.css'
 
+// fontawesome link 
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShop, faTruckFast } from '@fortawesome/free-solid-svg-icons';
-
-
 
 // image path 
 
 import description4 from '../Common/assets/image/description4.png'
 import Rating from '../Common/assets/image/Rating.png'
 
-
-
-import { setproductIdDetails, setsingleItemCount } from '../Redux/CreateSlice';
+// state change action 
+import { setproductIdDetails, setsingleItemCount, setsingleItemPrice } from '../Redux/CreateSlice';
 
 
 function Placeorder() {
-    const { productIdDetails, singleItemCount } = useSelector((state) => state.plants_product)
-    const price = 1 * productIdDetails[0].total_price
-    const [value, setValue] = useState(price);
-
+    const { productIdDetails, singleItemCount,singleItemPrice,logoutDetails } = useSelector((state) => state.plants_product)
+    const [activeTab, setActiveTab] = useState('tab1');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
+
+    const total_amount = productIdDetails.map((data) => { return data.total_price })
+    const final_amount = total_amount.reduce((accumulator, currentValue) => {
+        const num = parseFloat(currentValue);
+        return accumulator + num;
+       }, 0);
+
+    //    const itemIncrement = (id) => {
+    //     const updatedProductItems = shopProducts.map(item => {
+    //         if (item.id === id) {
+    //             const updatedQty = item.qty + 1;
+    //             const updatedAmount = item.total_price * updatedQty;
+    //             const quatity = { ...item, qty: item.qty + 1, amount: updatedAmount };
+    //             return quatity
+    //         }
+    //         return item;
+    //     });
+    //     dispatch(setShopProducts(updatedProductItems));
+    //     dispatch(settotalItemShop(totalItemShop + 1))
+    // };
 
     const handleIncrement = () => {
-        dispatch(setsingleItemCount(singleItemCount + 1))
-        const amount = value;
-        setValue(amount * singleItemCount)
+        dispatch(setsingleItemCount((singleItemCount + 1)))
+        dispatch(setsingleItemPrice(final_amount*singleItemCount + final_amount))
     };
-    console.log(value)
     const handleDecrement = () => {
         dispatch(setsingleItemCount(singleItemCount - 1))
-        const amount = productIdDetails[0].total_price
-        setValue(amount * singleItemCount)
+        dispatch(setsingleItemPrice(final_amount*singleItemCount - final_amount))
     };
 
-    const [activeTab, setActiveTab] = useState('tab1');
 
     const toggleTab = (tab) => {
         if (activeTab !== tab) {
@@ -51,14 +64,18 @@ function Placeorder() {
     };
 
     const payment = () => {
-        // navigate('/ProductOrderForm')
-        navigate('/Orderprocess')
+        if(logoutDetails==true){
+            navigate('/Orderprocess')
+        }else{
+            navigate('/Login')
+        }
+        
     }
     useEffect(() => {
         dispatch(setproductIdDetails(productIdDetails))
-        setValue(price)
+        dispatch(setsingleItemPrice(productIdDetails[0].total_price))
     }, [])
-    console.log(productIdDetails)
+   
     return (
         <div>
             <div className='description-section'>
@@ -119,7 +136,7 @@ function Placeorder() {
                                             <h6 className=''>Price ({singleItemCount} item):</h6>
                                         </div>
                                         <div className='col-6 text-end'>
-                                            <h6 className=''>{value}</h6>
+                                            <h6 className=''>{singleItemPrice}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +155,7 @@ function Placeorder() {
                                         <h3 className=''>Total :</h3>
                                     </div>
                                     <div className='col-6 text-end'>
-                                        <h3 className=''>{value}</h3>
+                                        <h3 className=''>{singleItemPrice}</h3>
                                     </div>
                                 </div>
                                 <div className='text-center'>

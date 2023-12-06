@@ -42,7 +42,8 @@ function Login() {
                 const authToken = data.data.token;
                 localStorage.setItem('userLoginToken', authToken);
                 const token = localStorage.getItem('token')
-                // navigate('/home')
+                dispatch(setlogoutDetails(true))
+                navigate('/Orderprocess')
             } else {
                 alert('Login failed:');
             }
@@ -55,7 +56,7 @@ function Login() {
     }
     return (
         <>
-            {/* <Header /> */}
+            <Header />
             <div className='login-section'>
                 <div className='row m-0 p-3 align-items-stretch'>
                     <div className='col-lg-6 col-md-12 col-12 input-section'>
@@ -125,7 +126,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </>
 
     )

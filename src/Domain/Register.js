@@ -36,7 +36,7 @@ function Register() {
     const dispatch = useDispatch()
 
     const login = () => {
-        navigate('/')
+        navigate('/Login')
     }
 
     const signup = async () => {
