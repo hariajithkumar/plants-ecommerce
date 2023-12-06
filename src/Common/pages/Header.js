@@ -22,12 +22,18 @@ import whiteprofile from '../assets/image/white_user.png'
 import whitesearch from '../assets/image/white_search.png'
 import whiteshop from '../assets/image/white_shop.png'
 import whitenav from '../assets/image/whitenav.png'
-function Header() {
-    const { likescount, shopcount } = useSelector((state) => state.plants_product)
 
+import { setallplantDetails, setsearchItemDetails, setsearchProduct } from '../../Redux/CreateSlice'
+
+
+function Header() {
+    const { likescount, shopcount, searchProduct, allplantsDetails,searchItemDetails } = useSelector((state) => state.plants_product)
+    const [searchTerm, setSearchTerm] = useState('');
+    const [products, setProducts] = useState(allplantsDetails);
     const [isSticky, setIsSticky] = useState(false);
     const location = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { pathname, search, hash } = location;
 
@@ -56,7 +62,19 @@ function Header() {
     }, []);
 
 
+    const searchlist = () => {
+        const searchItem = searchTerm.toLowerCase().trim();
+        const searchResults = allplantsDetails.filter((product) =>
+            product.title.toLowerCase().includes(searchProduct.searchItem) || product.total_price >= 0 && product.total_price <= parseFloat(searchProduct.searchItem)
+        );
+        dispatch(setsearchItemDetails(searchResults))
+        return searchResults
+    }
 
+    useEffect(() => {
+        dispatch(setallplantDetails(allplantsDetails))
+    }, [])
+    console.log(searchItemDetails)
     return (
         <>
             <div className='top-header '>
@@ -81,8 +99,8 @@ function Header() {
                                         <span className="input-group-text border-0 bg-none bg-white" id="searchIcon">
                                             <FontAwesomeIcon icon={faSearch} />
                                         </span>
-                                        <input type="text" className="form-control border-0" placeholder="Search our shop" aria-label="Search" aria-describedby="searchButton" />
-                                        <button className="btn btn-outline-secondary" type="button" id="searchButton">search</button>
+                                        <input type="text" className="form-control border-0" placeholder="Search our shop" aria-label="Search" aria-describedby="searchButton" onChange={(val) => dispatch(setsearchProduct({ ...searchProduct, searchItem: val.target.value }))} />
+                                        <button className="btn btn-outline-secondary" type="button" id="searchButton" onClick={() => searchlist()}>search</button>
                                     </div>
                                 </div>
                                 <div className='col-lg-5 col-md-3 text-center d-lg-block d-md-block d-none'>

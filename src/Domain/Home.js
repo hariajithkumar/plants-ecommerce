@@ -32,7 +32,7 @@ import { setisAdded, setisIncrement, setisDecrement, setisLiked, setallplantDeta
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const { isLiked, isAdded, allplantsDetails, likedProducts, likescount, shopProducts, shopcount, } = useSelector((state) => state.plants_product)
+  const { isLiked, isAdded, allplantsDetails, likedProducts, searchItemDetails, likescount, shopProducts, shopcount, } = useSelector((state) => state.plants_product)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -72,7 +72,6 @@ function Home() {
       dispatch(setshopcount(shopcount + 1))
     }
   };
-  console.log(shopProducts)
   const product_add = () => {
 
   }
@@ -92,11 +91,10 @@ function Home() {
   useEffect(() => {
     plantproduct();
   }, [])
-  console.log(allplantsDetails)
   return (
     <div>
       <Header />
-      
+
       <section className='pt-3'>
         <div className='container-90'>
           {/* <header section start  */}
@@ -151,8 +149,46 @@ function Home() {
               </div>
             </div>
             <div className='row m-0 py-5'>
-
-              {allplantsDetails && allplantsDetails.map((data, index) => {
+              {searchItemDetails.length > 0 ? <>
+                {searchItemDetails && searchItemDetails.map((data, index) => {
+                  return (
+                    <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2 d-flex align-self-stretch'>
+                      <div className={totalshops.includes(data.id) ? 'normal-box' : 'box-view'}>
+                        <button className='sales-offer'>Sale {data.discount_price}</button>
+                        <span
+                          className='float-end'
+                          onClick={() => handleLikeClick(data)}
+                        >
+                          <img
+                            src={totallikes.includes(data.id) ? likes : unlike}
+                            alt="Like Button"
+                          />
+                        </span>
+                        <img src={plant3} className='w-100' />
+                        <div class="row m-0 product-details">
+                          <div class="col-9">
+                            <h5>{data.title}</h5>
+                            <span className='price pe-2'>{data.total_price}</span><span className='text-decoration-line-through rate'>{data.actual_price}</span>
+                            <img src={rating} className='ms-2' />
+                          </div>
+                          <div class="col-3">
+                            <span
+                              className='float-end'
+                              id={data.id} value={data.id}
+                              onClick={() => handleShopClick(data, data.id, data.total_price)}
+                            >
+                              <img
+                                src={totalshops.includes(data.id) ? add : remove}
+                                alt="Shop Button"
+                              />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </> : <>{allplantsDetails && allplantsDetails.map((data, index) => {
                 return (
                   <div className='col-lg-3 col-md-4 col-sm-6 col-12 mt-2 d-flex align-self-stretch'>
                     <div className={totalshops.includes(data.id) ? 'normal-box' : 'box-view'}>
@@ -189,7 +225,8 @@ function Home() {
                     </div>
                   </div>
                 )
-              })}
+              })}</>}
+
 
 
             </div>
