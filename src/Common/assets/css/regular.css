@@ -94,7 +94,7 @@
 
 .like-count {
     position: absolute;
-    left: 43%;
+    left: 48%;
     top: 15px;
     display: inline-flex;
     padding: 0px 10px;
@@ -107,7 +107,7 @@
 
 .item-count {
     position: absolute;
-    left: 64%;
+    left: 67%;
     top: 15px;
     display: inline-flex;
     padding: 0px 10px;

@@ -72,7 +72,8 @@ function Header() {
     }
 
     useEffect(() => {
-        dispatch(setallplantDetails(allplantsDetails))
+            dispatch(setallplantDetails(allplantsDetails))
+            
     }, [])
     console.log(searchItemDetails)
     return (
@@ -101,6 +102,7 @@ function Header() {
                                         </span>
                                         <input type="text" className="form-control border-0" placeholder="Search our shop" aria-label="Search" aria-describedby="searchButton" onChange={(val) => dispatch(setsearchProduct({ ...searchProduct, searchItem: val.target.value }))} />
                                         <button className="btn btn-outline-secondary" type="button" id="searchButton" onClick={() => searchlist()}>search</button>
+                                        {/* <button className="btn btn-outline-secondary" type="button" id="searchButton">search</button> */}
                                     </div>
                                 </div>
                                 <div className='col-lg-5 col-md-3 text-center d-lg-block d-md-block d-none'>

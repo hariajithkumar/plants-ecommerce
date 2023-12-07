@@ -30,9 +30,9 @@ function Purchase() {
     const final_amount = total_amount.reduce((accumulator, currentValue) => {
         const num = parseFloat(currentValue);
         return accumulator + num;
-       }, 0);
+    }, 0);
 
-     // increment in product count 
+    // increment in product count 
     const itemIncrement = (id) => {
         const updatedProductItems = shopProducts.map(item => {
             if (item.id === id) {
@@ -63,17 +63,17 @@ function Purchase() {
     };
 
     // delete the product item
-    const deleteitem = (id,qty,title) => {
+    const deleteitem = (id, qty, title) => {
         const updatedItems = shopProducts.filter(item =>
             item.id !== id
-            
-        );
-            dispatch(setShopProducts(updatedItems))
-            dispatch(settotalItemShop(totalItemShop - qty+1))
-            dispatch(setshopcount(shopcount-1))
-        };
 
-        return (
+        );
+        dispatch(setShopProducts(updatedItems))
+        dispatch(settotalItemShop(totalItemShop - qty + 1))
+        dispatch(setshopcount(shopcount - 1))
+    };
+
+    return (
         <div className='purchase-section'>
             <Header />
             <div className='account-section'>
@@ -85,44 +85,50 @@ function Purchase() {
                             <Useraside />
                         </div>
                         <div className='col-6'>
-                            <div className='profile-card'>
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col" className=''>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {shopProducts && shopProducts.map((data, index) => {
-                                            return (
-                                                <tr className='total-wish'>
-                                                    <td className='wish-product'>
-                                                        <div className='row m-0 pt-2'>
-                                                            <div className='col-4 py-4'>
-                                                                <img src={plant1} alt='plant1' className='w-100' />
-                                                            </div>
-                                                            <div className='col-8 py-4'>
-                                                                <h5>{data.title}</h5>
-                                                                <img src={Rating} />
-                                                                <h5>{data.total_price}</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='py-5 px-0 sum-product'>
-                                                        <span>
-                                                            <button onClick={() => itemDecrement(data.id)}>-</button>
-                                                            <a className='mx-2 text-decoration-none'>{data.qty}</a>
-                                                            <button onClick={() => itemIncrement(data.id)}>+</button>
-                                                        </span>
-                                                    </td>
-                                                    <td className='py-5 text-center'><a className='text-decoration-none price-count'>{data.amount}</a><FontAwesomeIcon icon={faTrash} style={{ color: '#EA4B48' }} className='ps-3' onClick={() => deleteitem(data.id,data.qty,data.title)} /></td>
+                            <div className='profile-card order-card'>
+                                {shopProducts.length > 0 ?
+                                    <>
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col" className=''>Subtotal</th>
                                                 </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {shopProducts && shopProducts.map((data, index) => {
+                                                    return (
+                                                        <tr className='total-wish'>
+                                                            <td className='wish-product'>
+                                                                <div className='row m-0 pt-2'>
+                                                                    <div className='col-4 py-4'>
+                                                                        <img src={plant1} alt='plant1' className='w-100' />
+                                                                    </div>
+                                                                    <div className='col-8 py-4'>
+                                                                        <h5>{data.title}</h5>
+                                                                        <img src={Rating} />
+                                                                        <h5>{data.total_price}</h5>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className='py-5 px-0 sum-product'>
+                                                                <span>
+                                                                    <button onClick={() => itemDecrement(data.id)}>-</button>
+                                                                    <a className='mx-2 text-decoration-none'>{data.qty}</a>
+                                                                    <button onClick={() => itemIncrement(data.id)}>+</button>
+                                                                </span>
+                                                            </td>
+                                                            <td className='py-5 text-center'><a className='text-decoration-none price-count'>{data.amount}</a><FontAwesomeIcon icon={faTrash} style={{ color: '#EA4B48' }} className='ps-3' onClick={() => deleteitem(data.id, data.qty, data.title)} /></td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </> :
+                                    <><h1 className='text-center'>No Shop Product</h1></>
+                                }
+
                             </div>
                         </div>
                         <div className='col-3'>
