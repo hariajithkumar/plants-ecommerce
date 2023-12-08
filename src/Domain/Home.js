@@ -86,8 +86,13 @@ function Home() {
   }
   const plantproduct = async () => {
     const { data } = await axios.get('https://webbitech.co.in/ecommerce/public/api/productlist');
-    dispatch(setallplantDetails(data.data))
+      dispatch(setallplantDetails(data.data))
+      
   }
+
+  // no.of product view on array 
+  // const firstThreeProducts = allplantsDetails.slice(0, 3);
+
   useEffect(() => {
     plantproduct();
   }, [])
@@ -191,9 +196,8 @@ function Home() {
                   })}
                 </> :
                 <>
-                  <h1>No items</h1>
+                  <h1 className='text-center product-title'>No items</h1>
                 </>
-
               }
 
             </div>

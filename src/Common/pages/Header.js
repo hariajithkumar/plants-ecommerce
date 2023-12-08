@@ -23,12 +23,12 @@ import whitesearch from '../assets/image/white_search.png'
 import whiteshop from '../assets/image/white_shop.png'
 import whitenav from '../assets/image/whitenav.png'
 
-import { setallplantDetails, setsearchItemDetails, setsearchProduct, setsearchfield } from '../../Redux/CreateSlice'
+import { setallplantDetails, setnavListDetails, setsearchItemDetails, setsearchProduct, setsearchfield } from '../../Redux/CreateSlice'
 import axios from 'axios';
 
 
 function Header() {
-    const { likescount, shopcount, searchProduct, allplantsDetails, searchItemDetails, searchResults,searchfield } = useSelector((state) => state.plants_product)
+    const { likescount, shopcount, searchProduct, allplantsDetails, searchItemDetails, searchResults, searchfield, navListDetails } = useSelector((state) => state.plants_product)
     const [searchTerm, setSearchTerm] = useState('');
     const [products, setProducts] = useState(allplantsDetails);
     const [isSticky, setIsSticky] = useState(false);
@@ -77,7 +77,7 @@ function Header() {
                 product.title.toLowerCase().includes(newSearchItem) ||
                 (product.total_price >= 0 && product.total_price <= parseFloat(newSearchItem))
             );
-           
+
             if (newSearchItem === '') {
                 dispatch(setallplantDetails(data.data));
                 dispatch(setsearchfield(true))
@@ -93,13 +93,16 @@ function Header() {
             console.error('Error fetching data:', error);
         }
     };
-
+    const navlist = async () => {
+        const { data } = await axios.get("https://webbitech.co.in/ecommerce/public/api/mainMenu")
+        dispatch(setnavListDetails(data.data))
+    }
     useEffect(() => {
         dispatch(setallplantDetails(allplantsDetails))
         dispatch(setsearchProduct(searchProduct))
+        navlist()
     }, [])
-
-console.log(searchfield)
+    console.log(allplantsDetails)
     return (
         <>
             <div className='top-header '>
@@ -166,9 +169,22 @@ console.log(searchfield)
                                 <span className='like-count'>{likescount}</span>
                             </div>
                             <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                                {/* <ul class="navbar-nav py-2 nav-content">
+                                    {navListDetails && navListDetails.map((data, index) => {
+                                        return (
+                                            <li key={index}>
+                                                <NavLink exact to={{ pathname: `/${data.name.toLowerCase()}`   }} className={`${pathname === `/${data.name.toLowerCase()}` ? 'active' : 'custom-active'} text-decoration-none`}>
+                                                    {data.name}
+                                                </NavLink>
+                                            </li>
+                                        )
+
+                                    })}
+
+                                </ul> */}
                                 <ul class="navbar-nav py-2 nav-content">
                                     <li className='nav-item d-flex align-items-center'>
-                                        <NavLink exact to={{ pathname: '/' }} className={`${pathname === '/' ? 'active' : 'custom-active'} text-decoration-none`}>
+                                        <NavLink exact to={{ pathname: '/home' }} className={`${pathname === '/home' ? 'active' : 'custom-active'} text-decoration-none`}>
                                             Home
                                         </NavLink>
                                     </li>

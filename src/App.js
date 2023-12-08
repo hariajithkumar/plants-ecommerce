@@ -21,6 +21,7 @@ import ProductOrderForm from './Domain/ProductOrderForm';
 import Orderprocess from './Domain/Orderprocess';
 import Forgetpassword from './Domain/Forgetpassword';
 import Resetpassword from './Domain/Resetpassword';
+import Fdfd from './Domain/Fdfd';
 
 function App() {
    
@@ -49,7 +50,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/Forgetpassword' element={<Forgetpassword />} />
         <Route path='/Resetpassword' element={<Resetpassword />} />
@@ -63,6 +64,7 @@ function App() {
         <Route path='/Placeorder' element={<Placeorder />}/>
         <Route path='/ProductOrderForm' element={<ProductOrderForm />}/>
         <Route path='/Orderprocess' element={<Orderprocess />} />
+        <Route path='/Fdfd' element={<Fdfd />} />
       </Routes>
     </BrowserRouter>
   );

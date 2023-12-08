@@ -10,12 +10,14 @@ import star3 from '../assets/image/Rating3.png'
 import star4 from '../assets/image/Rating4.png'
 import star5 from '../assets/image/Rating5.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilteredProducts, setpriceFilter } from '../../Redux/CreateSlice'
+import { setFilteredProducts, setallplantDetails, setpriceFilter } from '../../Redux/CreateSlice'
 
 
 function Aside() {
-    const { allplantsDetails, priceFilter,filteredProducts } = useSelector((state) => state.plants_product)
+    const { allplantsDetails, priceFilter, filteredProducts } = useSelector((state) => state.plants_product)
     const [sliderValue, setSliderValue] = useState(0); // Initial value
+    const [topDetails, setTopDetails] = useState(0); // Initial value
+    const [outDoor, setoutDoor] = useState(0); // Initial value
     const dispatch = useDispatch();
 
     const [minPrice, setMinPrice] = useState(0);
@@ -24,6 +26,47 @@ function Aside() {
     //     setMaxPrice(parseInt(e.target.value, 10));
     // };
 
+   
+    const indoor = async () => {
+        const onvalue = setTopDetails((prevValue) => (prevValue === 0 ? 1 : 0));
+        console.log("onvalue", topDetails)
+        if (topDetails === 0) {
+            console.log("ajith")
+            const innerdoor = [];
+            allplantsDetails && allplantsDetails.map((data, index) => {
+                if (data.category_id == 1) {
+                    innerdoor.push(data)
+                }
+            })
+            dispatch(setallplantDetails(innerdoor))
+        } else {
+            const { data } = await axios.get('https://webbitech.co.in/ecommerce/public/api/productlist');
+            dispatch(setallplantDetails(data.data))
+            console.log('kumar')
+
+        }
+    }
+    const outdoor = async () => {
+        const onvalue = setoutDoor((prevValue) => (prevValue === 0 ? 1 : 0));
+        console.log("onvalue", topDetails)
+        if (outDoor === 0) {
+            console.log("ajith")
+            const outdoor = [];
+            allplantsDetails && allplantsDetails.map((data, index) => {
+                if (data.category_id == 3) {
+                    outdoor.push(data)
+                }
+            })
+            dispatch(setallplantDetails(outdoor))
+        } else {
+            const { data } = await axios.get('https://webbitech.co.in/ecommerce/public/api/productlist');
+            dispatch(setallplantDetails(data.data))
+            console.log('kumar')
+
+        }
+    }
+    console.log(topDetails)
+    console.log(allplantsDetails)
     useEffect(() => {
         // Filter products based on the max price
         const filtered = allplantsDetails.filter(product => product.total_price <= maxPrice);
@@ -44,11 +87,11 @@ function Aside() {
                             <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                 <div className="accordion-body">
                                     <div className="mb-3 form-check">
-                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" checked={topDetails === 1} onClick={() => indoor()} />
                                         <label className="form-check-label" for="exampleCheck1">Table Top<span>(13)</span></label>
                                     </div>
                                     <div className="mb-3 form-check">
-                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" onClick={() => outdoor()}/>
                                         <label className="form-check-label" for="exampleCheck1">Medium Light<span>(15)</span></label>
                                     </div>
                                     <div className="mb-3 form-check">
