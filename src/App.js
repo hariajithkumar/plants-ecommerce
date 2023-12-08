@@ -23,6 +23,7 @@ import Forgetpassword from './Domain/Forgetpassword';
 import Resetpassword from './Domain/Resetpassword';
 
 function App() {
+   
   useEffect(() => {
     const handleScroll = () => {
       const cards = document.querySelectorAll('.slide-up, .slide-left, .slide-right');

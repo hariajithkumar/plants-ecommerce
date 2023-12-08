@@ -31,6 +31,7 @@ export const CrateSlice = createSlice({
             searchItem:''
         },
         searchItemDetails:[],
+        searchfield:true,
         filteredProducts: [],
         likedProducts: [],
         shopProducts: [],
@@ -78,6 +79,9 @@ export const CrateSlice = createSlice({
         },
         setsearchItemDetails: (state, action) => {
             state.searchItemDetails = action.payload
+        },
+        setsearchfield: (state, action) => {
+            state.searchfield = action.payload
         },
         setFilteredProducts: (state, action) => {
             state.filteredProducts = action.payload
@@ -134,6 +138,6 @@ export const CrateSlice = createSlice({
     }
 })
 
-export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails,setsearchProduct,setsearchItemDetails,setFilteredProducts, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce,setproductIdDetails,setsingleItemCount,setsingleItemPrice } = CrateSlice.actions
+export const { setClass1Hide, setprofileDetails, setloginDetails, setforgetDetails,setresetpasswordDetails, setlogoutDetails, setregisterDetails,setsearchProduct,setsearchItemDetails,setsearchfield,setFilteredProducts, setisLiked, setisAdded, setisIncrement, setisDecrement, setActiveItem, setallplantDetails, setLikedProducts, setlikescount, setShopProducts, setshopcount, settotalItemShop, setfinalItemPrice,setpriceFilter,setminPirce,setproductIdDetails,setsingleItemCount,setsingleItemPrice } = CrateSlice.actions
 export default CrateSlice.reducer
 
